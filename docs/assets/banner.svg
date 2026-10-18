@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="480" viewBox="0 0 1280 480" role="img" aria-labelledby="title desc">
+  <title id="title">Game Art Skills — 8 reusable workflows for AI agents</title>
+  <desc id="desc">A dark illustrated cover with a pixel sprite, a skeleton, an isometric cube and an audio waveform. These are diagrams of the covered workflows.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#263341" stroke-width=".6"/></pattern>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111a25"/><stop offset="1" stop-color="#11141d"/></linearGradient>
+    <linearGradient id="edge"><stop stop-color="#75e8c5"/><stop offset=".5" stop-color="#84afff"/><stop offset="1" stop-color="#bc9cff"/></linearGradient>
+    <style>.sans{font-family:Inter,Segoe UI,Arial,sans-serif}.mono{font-family:Consolas,Menlo,monospace}.label{font-size:12px;letter-spacing:2px;fill:#9aaabd}.card{fill:#17212d;stroke:#334255;stroke-width:1.2}</style>
+  </defs>
+  <rect width="1280" height="480" rx="22" fill="url(#bg)"/>
+  <rect width="1280" height="480" rx="22" fill="url(#grid)" opacity=".45"/>
+  <path d="M24 1h1232" stroke="url(#edge)" stroke-width="3"/>
+  <path d="M760 0v480" stroke="#314052" stroke-dasharray="3 9"/>
+  <g transform="translate(54 48)">
+    <rect width="38" height="38" rx="9" fill="#75e8c5"/>
+    <path d="m10 13 9-5 9 5-9 5Zm0 2 8 5v10l-8-5Zm10 5 8-5v10l-8 5Z" fill="#10231f"/>
+    <text x="54" y="17" class="mono" font-size="13" fill="#e8eef5" letter-spacing="2">GAME ASSET AESTHETIC TEST</text>
+    <text x="54" y="36" class="mono" font-size="11" fill="#8c9bad" letter-spacing="1.3">A FIELD NOTEBOOK, TURNED INTO SKILLS</text>
+  </g>
+  <text x="54" y="184" class="sans" font-size="76" font-weight="750" fill="#f2f5f9" letter-spacing="-3">Game Art</text>
+  <text x="54" y="267" class="sans" font-size="76" font-weight="750" fill="#75e8c5" letter-spacing="-3">Skill Library.</text>
+  <text x="58" y="310" class="sans" font-size="19" fill="#aab8ca">From reference to sprites, rigs, blocky models and narration.</text>
+  <g transform="translate(56 350)" class="mono" font-size="12">
+    <rect width="136" height="34" rx="7" fill="#1b302c" stroke="#33584e"/><text x="20" y="22" fill="#8ce7ca">8 WORKFLOWS</text>
+    <rect x="148" width="164" height="34" rx="7" fill="#1b273a" stroke="#354c70"/><text x="164" y="22" fill="#a6c3ff">REUSABLE CODE</text>
+    <rect x="324" width="148" height="34" rx="7" fill="#29223b" stroke="#514368"/><text x="340" y="22" fill="#cfb8ff">SOURCES + QA</text>
+  </g>
+  <text x="58" y="440" class="mono" font-size="11" fill="#77879d" letter-spacing="1">2D / SPINE / BLOCKBENCH / TTS</text>
+  <g transform="translate(799 44)">
+    <path d="M104 93h117M104 93v207h117" fill="none" stroke="#4d5b70" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <circle cx="162" cy="93" r="4" fill="#75e8c5"/><circle cx="162" cy="300" r="4" fill="#bd9cff"/>
+    <rect width="190" height="186" rx="13" class="card"/>
+    <rect x="206" width="190" height="186" rx="13" class="card"/>
+    <rect y="202" width="190" height="186" rx="13" class="card"/>
+    <rect x="206" y="202" width="190" height="186" rx="13" class="card"/>
+    <g class="mono label"><text x="17" y="28">01 / SPRITES</text><text x="223" y="28">02 / RIGS</text><text x="17" y="230">03 / BLOCKS</text><text x="223" y="230">04 / VOICE</text></g>
+    <g transform="translate(56 48) scale(7)" shape-rendering="crispEdges">
+      <path d="M3 0h5v1h2v4H1V2h2Z" fill="#96aaff"/>
+      <path d="M2 3h6v4H2Z" fill="#f1c8a7"/><path d="M6 4h1v1H6Z" fill="#1c2434"/>
+      <path d="M3 7h5v4H3Zm-2 1h2v3H1Zm7 0h2v3H8Z" fill="#75e8c5"/>
+      <path d="M3 11h2v3H3Zm3 0h2v3H6Z" fill="#64718d"/><path d="M2 14h3v1H2Zm4 0h3v1H6Z" fill="#ced8e5"/>
+    </g>
+    <path d="M236 155h130" stroke="#435165" stroke-dasharray="3 5"/>
+    <g stroke="#91b7ff" stroke-width="3" stroke-linecap="round" fill="none">
+      <circle cx="300" cy="64" r="12"/><path d="M300 77v40m0-28-28 17-15-18m43 1 26 10 18-21m-44 39-21 21-6 19m27-40 22 19 15 22"/>
+    </g>
+    <g fill="#18212f" stroke="#c7d9ff" stroke-width="2"><circle cx="300" cy="89" r="4"/><circle cx="272" cy="106" r="4"/><circle cx="326" cy="99" r="4"/><circle cx="300" cy="117" r="4"/><circle cx="279" cy="138" r="4"/><circle cx="322" cy="136" r="4"/></g>
+    <g transform="translate(48 252)">
+      <path d="m0 27 47-26 47 26-47 27Z" fill="#38304f" stroke="#bfa4f6" stroke-width="2"/>
+      <path d="M0 27v53l47 27V54Z" fill="#211e33" stroke="#bfa4f6" stroke-width="2"/>
+      <path d="m47 54 47-27v53l-47 27Z" fill="#2b2540" stroke="#bfa4f6" stroke-width="2"/>
+      <g fill="none" stroke="#817199" stroke-width="1"><path d="m16 18 47 26m-31-35 47 26M16 36v53m15-44v53m32-53v53m15-62v53M0 45l47 27 47-27M0 63l47 27 47-27"/></g>
+    </g>
+    <g transform="translate(228 272)" stroke="#efb17c" stroke-width="5" stroke-linecap="round">
+      <path d="M0 24v14m12-25v36m12-44v52m12-36v20m12-52v82m12-66v50m12-36v22m12-48v74m12-57v40m12-31v22m12-11v2m12-18v35m12-26v17"/>
+    </g>
+  </g>
+</svg>

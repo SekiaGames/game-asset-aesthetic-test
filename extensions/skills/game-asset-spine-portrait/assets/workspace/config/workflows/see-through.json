@@ -1,0 +1,12 @@
+{
+ "_说明": "See-through（ComfyUI-See-through 0.5.0 节点，jtydhr88）：动漫立绘 → 语义 RGBA 层 + 深度 → 左右 / 前后发拆分 → 存 PNG + layers.json（存到 ComfyUI output 目录，由 seethrough_psd_info.log 指向）。模型放 models/SeeThrough/（本机下载，auto_download 关掉）。use_lama 关：LaMa 权重由 torch.hub 下到 C 盘缓存，先用 OpenCV 补洞。2026-10-09。",
+ "1": {"class_type": "LoadImage", "inputs": {"image": "example.png"}},
+ "2": {"class_type": "JoinImageWithAlpha", "inputs": {"image": ["1", 0], "alpha": ["1", 1]}},
+ "3": {"class_type": "SeeThrough_LoadLayerDiffModel", "inputs": {"model": "seethroughv0.0.2_layerdiff3d", "quant_mode": "none", "cache_tag_embeds": true, "group_offload": false, "auto_download": false}},
+ "4": {"class_type": "SeeThrough_LoadDepthModel", "inputs": {"model": "seethroughv0.0.1_marigold", "quant_mode": "none", "group_offload": false, "auto_download": false}},
+ "5": {"class_type": "SeeThrough_GenerateLayers", "inputs": {"image": ["2", 0], "layerdiff_model": ["3", 0], "seed": 42, "resolution": 1280, "num_inference_steps": 30}},
+ "6": {"class_type": "SeeThrough_GenerateDepth", "inputs": {"layers": ["5", 0], "depth_model": ["4", 0], "seed": 42, "resolution_depth": -1}},
+ "7": {"class_type": "SeeThrough_PostProcess", "inputs": {"layers_depth": ["6", 0], "tblr_split": true, "use_lama": false}},
+ "8": {"class_type": "SeeThrough_SavePSD", "inputs": {"parts": ["7", 0], "filename_prefix": "seethrough_kurumi"}},
+ "9": {"class_type": "SaveImage", "inputs": {"images": ["5", 1], "filename_prefix": "layer-compare/seethrough_preview"}}
+}

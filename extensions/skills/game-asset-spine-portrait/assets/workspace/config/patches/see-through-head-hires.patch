@@ -1,0 +1,54 @@
+diff --git a/nodes.py b/nodes.py
+index 952a7d8..18b439f 100644
+--- a/nodes.py
++++ b/nodes.py
+@@ -299,6 +299,33 @@ def _crop_head(img, xywh):
+     return img[y1:y2, x1:x2], (x1, y1, x2, y2)
+ 
+ 
++def _dump_head_hires(images, head_tags, head_pad_size, head_pad_pos, ih, iw, src_xyxy):
++    """[game-aesthetic-asset patch] 头部第二遍推理的结果按原图像素尺寸另存（节点原本把它缩回整张画布的分辨率）。
++    输出 ComfyUI output/seethrough_head_hires/<时间>/<tag>.png + head.json（src_xyxy：在原图里的位置），
++    最新一次的目录名写进 output/seethrough_head_hires/latest.txt。"""
++    import json, time
++    root = os.path.join(folder_paths.get_output_directory(), "seethrough_head_hires")
++    d = os.path.join(root, time.strftime("%Y%m%d_%H%M%S"))
++    os.makedirs(d, exist_ok=True)
++    py, px = head_pad_pos[1], head_pad_pos[0]
++    for rst, tag in zip(images, head_tags):
++        # 预乘 alpha 下缩放：直通 alpha 缩放会把透明处的杂色带进边缘
++        al = rst[..., 3:].astype(np.float32) / 255
++        pm = np.concatenate([rst[..., :3].astype(np.float32) * al, al * 255], -1)
++        pm = cv2.resize(pm, (head_pad_size[0], head_pad_size[1]), interpolation=cv2.INTER_LANCZOS4)[py:py + ih, px:px + iw]
++        a2 = np.clip(pm[..., 3:], 0, 255)
++        rgb = np.where(a2 > 0.5, pm[..., :3] * 255 / np.maximum(a2, 1e-3), 0)
++        big = np.concatenate([np.clip(rgb, 0, 255), a2], -1).round().astype(np.uint8)
++        if (big[..., 3] > 10).any():
++            cv2.imwrite(os.path.join(d, f"{tag}.png"), cv2.cvtColor(big, cv2.COLOR_RGBA2BGRA))
++    with open(os.path.join(d, "head.json"), "w", encoding="utf-8") as f:
++        json.dump({"src_xyxy": [int(v) for v in src_xyxy], "tags": head_tags,
++                   "infer_size": int(images[0].shape[0])}, f)
++    with open(os.path.join(root, "latest.txt"), "w") as f:
++        f.write(os.path.basename(d))
++    print(f"[SeeThrough] head hires dumped -> {d}", flush=True)
++
++
+ def _make_preview(tag2pinfo, resolution):
+     drawables = list(tag2pinfo.values())
+     if drawables:
+@@ -595,6 +622,7 @@ class SeeThrough_GenerateLayers:
+                 hx = int(hx0 * scale) - pad_pos[0]
+                 hy = int(hy0 * scale) - pad_pos[1]
+                 input_head, (hx1, hy1, hx2, hy2) = _crop_head(input_img, [hx, hy, int(hw * scale), int(hh * scale)])
++                head_src_xyxy = (hx1, hy1, hx2, hy2)  # [game-aesthetic-asset patch] 头部在原图像素里的位置
+                 hx1 = int(hx1 / scale + pad_pos[0] / scale)
+                 hy1 = int(hy1 / scale + pad_pos[1] / scale)
+                 ih, iw = input_head.shape[:2]
+@@ -605,6 +633,7 @@ class SeeThrough_GenerateLayers:
+                                prompt_embeds=head_embeds, pooled_prompt_embeds=head_pooled,
+                                fullpage=input_head, group_index=1)
+                 _log_vram("v3 head diffusion complete")
++                _dump_head_hires(out.images, head_tags, head_pad_size, head_pad_pos, ih, iw, head_src_xyxy)
+ 
+                 canvas = np.zeros((resolution, resolution, 4), dtype=np.uint8)
+                 coords = np.array([head_pad_pos[1], head_pad_pos[1] + ih, head_pad_pos[0], head_pad_pos[0] + iw])

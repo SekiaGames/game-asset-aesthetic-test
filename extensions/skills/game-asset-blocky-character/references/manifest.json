@@ -1,0 +1,82 @@
+{
+  "name": "game-asset-blocky-character",
+  "date": "2026-10-18",
+  "execution_mode": "character-adaptation",
+  "code": [
+    {
+      "origin": "scripts/blocky-box-hair.py",
+      "path": "assets/workspace/scripts/blocky-box-hair.py",
+      "source_sha256": "c8fa03805d716f4328c65dcb678de999a1a5c1e9d225215e4eba93a063200747",
+      "sha256": "1f5e10854c6f86f5faa38c44224a3f8d710c9a20555a35f7ca4891c7225f7b61",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/blocky-build.py",
+      "path": "assets/workspace/scripts/blocky-build.py",
+      "source_sha256": "62407895167c5a4060cef683e64cea4bf1ba9ff5e40e6cf9a69fbec7bfbaa014",
+      "sha256": "796a316333b337e2185c5d3ca6a22185866d692f1704d29ba6754578c10ccc25",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/blocky-clip-check.py",
+      "path": "assets/workspace/scripts/blocky-clip-check.py",
+      "source_sha256": "19129c5703388e139794ccf44070fd94f19dc7947936ae8acb1601cc4676e123",
+      "sha256": "82eba8791f5a8ec3391e6d3826f6d6813286787e329e904ed722482a1d4d74f3",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/blocky-kit.py",
+      "path": "assets/workspace/scripts/blocky-kit.py",
+      "source_sha256": "5321c5c8a1d22a2646e623adb5ce83f616d649a6d155fb0a681970c0626b80d4",
+      "sha256": "ddbead8cafd8930a0da71ef5fd74f8fbd1116d8dcfece41c5ac30c855d4248ce",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/blocky-stage-outfit.py",
+      "path": "assets/workspace/scripts/blocky-stage-outfit.py",
+      "source_sha256": "b38551bf698a91777549c0e62ff29c99532ae1c41482361998b2e625635afe1a",
+      "sha256": "50cd13ec959721ee7c2882d3dc3d908c3c8fa622fc933b7b5b9d158da03e2bfe",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/blocky-template.py",
+      "path": "assets/workspace/scripts/blocky-template.py",
+      "source_sha256": "a71a08fa9738b6ee9432bc1b4c008c8d78dcb78fceba9fcdb6ae2a2193f3a770",
+      "sha256": "fc90f8b7a8ea63be63a35ebfcdd37d5a84c343d2b053af4c0e7d82039666e29d",
+      "adaptations": [
+        "移除成人场景关联角色配置；保留普通着装模板。"
+      ]
+    },
+    {
+      "origin": "scripts/blocky-witch-outfit.py",
+      "path": "assets/workspace/scripts/blocky-witch-outfit.py",
+      "source_sha256": "7c9668719d1f6fa39e25082ec5c4ddbe6cc8b265bd3f4aa89b0e7468bd36c8db",
+      "sha256": "9abcc2cb33811d202837cbeb1bcfed9ed6921b7742229254cca5a813368f4576",
+      "adaptations": []
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/blocky-character-guide.md",
+      "sha256": "33d7e1d0a8285a51216f644a7ab2271a4603a54e3bac3c243e2a97fad2ee0a97"
+    },
+    {
+      "path": "docs/blocky-style-reference.md",
+      "sha256": "09d22263bce6e052e6225efe78317cc8a19766741d2a82e3a5c350d1c263ba2d"
+    },
+    {
+      "path": "docs/blocky-community-analysis.md",
+      "sha256": "4f116fa4922c5aff70ce1a61eb498b9e8fe4410737321f39798fc2808bbe5b9f"
+    },
+    {
+      "path": "reports/blocky-mc-2026-10-11.md",
+      "sha256": "dfc60bde0363ff1eb88f1281ae76ae60ea063c7da6a84424b4d7cd9452010f87"
+    },
+    {
+      "path": "reports/blocky-anime-template-2026-10-11.md",
+      "sha256": "df0aaa19cdc7bb26a3284885a5afb545dd3358d4739cd656c320a531fe80d5d2"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "game-asset-video-sprites",
+    "title": "视频转像素精灵",
+    "mode": "portable",
+    "files": 9
+  },
+  {
+    "name": "game-asset-spine-cutout",
+    "title": "侧视切件骨骼与武器",
+    "mode": "character-adaptation",
+    "files": 16
+  },
+  {
+    "name": "game-asset-spine-portrait",
+    "title": "立绘拆层与正面 Spine",
+    "mode": "prepared-inputs",
+    "files": 22
+  },
+  {
+    "name": "game-asset-spine-multiview",
+    "title": "多方向 Spine 与 3D 场景",
+    "mode": "prepared-inputs",
+    "files": 22
+  },
+  {
+    "name": "game-asset-blocky-character",
+    "title": "方块角色与像素贴图",
+    "mode": "character-adaptation",
+    "files": 12
+  },
+  {
+    "name": "game-asset-blocky-hair",
+    "title": "方块发型与配饰",
+    "mode": "character-adaptation",
+    "files": 12
+  },
+  {
+    "name": "game-asset-blocky-qa",
+    "title": "方块共面与动态检查",
+    "mode": "external-library",
+    "files": 9
+  },
+  {
+    "name": "game-asset-tts-narration",
+    "title": "普通讲解 TTS 与质检",
+    "mode": "prepared-inputs",
+    "files": 13
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "name": "game-asset-tts-narration",
+  "date": "2026-10-18",
+  "execution_mode": "prepared-inputs",
+  "code": [
+    {
+      "origin": "voice-drama/src/tts_batch.py",
+      "path": "assets/workspace/src/tts_batch.py",
+      "source_sha256": "a3e8890fdacf222a5148d0659bff00eb5f0281a3b86408d2d0ee55eaac1ecaa5",
+      "sha256": "6f48d670914986be7efa5aba7b778786185d54cab44fdaea9eb47bf793667fa1",
+      "adaptations": [
+        "默认台本改普通讲解样例；保留 API 协议，批量请求失败后返回非零退出码，避免假成功。"
+      ]
+    },
+    {
+      "origin": "voice-drama/src/script_parse.py",
+      "path": "assets/workspace/src/script_parse.py",
+      "source_sha256": "c5ffc60eeea4b837968314cddf841858c1a02d3f32719d481c08bab1a5f20a53",
+      "sha256": "c5ffc60eeea4b837968314cddf841858c1a02d3f32719d481c08bab1a5f20a53",
+      "adaptations": []
+    },
+    {
+      "origin": "voice-drama/src/voice_design.py",
+      "path": "assets/workspace/src/voice_design.py",
+      "source_sha256": "39aa4a0a5c7722345285d42cfb3bdb3add0abc452174f2f8d21f8dc6cf9dbb87",
+      "sha256": "90df6dcd30179abc739eef6f797e2ad4f2342324452f81aa60a2f54b88c728c6",
+      "adaptations": [
+        "音色描述/参考文本换成普通教程，路径可由环境变量设置。"
+      ]
+    },
+    {
+      "origin": "voice-drama/src/qc.py",
+      "path": "assets/workspace/src/qc.py",
+      "source_sha256": "ea47797e4842d64e3c7704071b0c5055a47c702e78129cf7bb509c554521503f",
+      "sha256": "8922d79b8718283f9a9fc40b3525324b4a542923bef26edee6df482d6829f529",
+      "adaptations": [
+        "重写通用质检说明，删除原场景举例；ASR 路径可配置。"
+      ]
+    },
+    {
+      "origin": "voice-drama/src/prosody.py",
+      "path": "assets/workspace/src/prosody.py",
+      "source_sha256": "5a7ed6c71e8d0fb2b2cf5dae8869c84b01b646287c9a0f6fe4a5676111953936",
+      "sha256": "5a7ed6c71e8d0fb2b2cf5dae8869c84b01b646287c9a0f6fe4a5676111953936",
+      "adaptations": []
+    },
+    {
+      "origin": "voice-drama/src/spk_sim.py",
+      "path": "assets/workspace/src/spk_sim.py",
+      "source_sha256": "eb44c2afca0421c44d30b1c67cc9b3e80da063c49215d262ba0e79a156a1b825",
+      "sha256": "fe164191b8f5ec8fd2039c34bafe89ce897b7642cb82dcff6f42a00da6e9898e",
+      "adaptations": [
+        "重写通用质检说明，删除原场景举例；ASR 路径可配置。"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "path": "reports/ai-art-video-2026-10-13.md",
+      "sha256": "fa1ea281877473ed817b6ce8e485b4dd35d7b1e0882af9a2746bb4c06fbf25cd"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+<!doctype html>
+<!-- spine-render.mjs 用的无头渲染页：官方 spine-webgl 4.2 渲染指定姿势 / 片段，返回 PNG dataURL。不要直接打开。 -->
+<html><head><meta charset="utf-8"><script src="/__spine/spine-webgl.js"></script></head>
+<body style="margin:0;background:transparent"><canvas id="c"></canvas>
+<script>
+const canvas = document.getElementById("c");
+let ctx, renderer, am;
+
+async function loadSkeleton(skelUrl, atlasUrl) {
+  am.loadTextureAtlas(atlasUrl);
+  if (skelUrl.endsWith(".json")) am.loadText(skelUrl); else am.loadBinary(skelUrl);
+  await am.loadAll();
+  const atlas = am.require(atlasUrl);
+  const loader = new spine.AtlasAttachmentLoader(atlas);
+  const data = skelUrl.endsWith(".json")
+    ? new spine.SkeletonJson(loader).readSkeletonData(am.require(skelUrl))
+    : new spine.SkeletonBinary(loader).readSkeletonData(am.require(skelUrl));
+  return { data, pma: atlas.pages.some((p) => p.pma) };
+}
+
+// 每帧的骨骼驱动：bones = { 骨骼名: { x: "表达式(t)", y: ..., rotation: ... } }，在动画之后、约束求解之前写入
+function drive(skeleton, bones, t) {
+  for (const [name, props] of Object.entries(bones || {})) {
+    const b = skeleton.findBone(name);
+    if (!b) throw new Error("no bone " + name);
+    for (const [k, expr] of Object.entries(props)) b[k] = typeof expr === "number" ? expr : Function("t", "b", "return " + expr)(t, b);
+  }
+}
+
+function setupTracks(state, data, tracks) {
+  for (const tr of tracks) {
+    if (!data.findAnimation(tr.anim)) throw new Error("no animation " + tr.anim);
+    const e = state.setAnimation(tr.track, tr.anim, tr.loop !== false);
+    e.alpha = tr.alpha ?? 1;
+    if (tr.add) e.mixBlend = spine.MixBlend.add;
+    if (tr.time !== undefined) e.trackTime = tr.time;
+    if (tr.speed !== undefined) e.timeScale = tr.speed;
+    // 排队播放（同 app 的 in → active → out）：queue: [{anim, loop, delay, mix}]
+    for (const q of tr.queue || []) {
+      const qe = state.addAnimation(tr.track, q.anim, !!q.loop, q.delay || 0);
+      if (q.mix !== undefined) qe.mixDuration = q.mix;
+      if (tr.add) qe.mixBlend = spine.MixBlend.add;
+    }
+  }
+}
+
+function draw(skeleton, cam, bg, pma) {
+  const gl = ctx.gl;
+  gl.clearColor(...bg); gl.clear(gl.COLOR_BUFFER_BIT);
+  renderer.camera.position.x = cam.x + cam.w / 2;
+  renderer.camera.position.y = cam.y + cam.h / 2;
+  renderer.camera.setViewport(cam.w, cam.h);
+  renderer.begin(); renderer.drawSkeleton(skeleton, pma); renderer.end();
+  return canvas.toDataURL("image/png");
+}
+
+// job: { skel, atlas, size:[w,h], bg:[r,g,b,a], cam?:{x,y,w,h}, pad, shots:[...] }
+// shot: { name, tracks:[{track,anim,time,alpha,add,loop,speed}], bones:{}, skin?,
+//         fps?, frames? (>1 = 连续播放：AnimationState 推进 + 物理更新), warmup? 秒 (先跑这么久再开始录) }
+window.renderJob = async function (job) {
+  canvas.width = job.size[0]; canvas.height = job.size[1];
+  ctx = new spine.ManagedWebGLRenderingContext(canvas, { preserveDrawingBuffer: true, alpha: true, premultipliedAlpha: false });
+  renderer = new spine.SceneRenderer(canvas, ctx, true);
+  am = new spine.AssetManager(ctx);
+  const { data, pma } = await loadSkeleton(job.skel, job.atlas);
+  const out = [];
+  for (const shot of job.shots) {
+    const skeleton = new spine.Skeleton(data);
+    if (shot.skin) { skeleton.setSkinByName(shot.skin); skeleton.setSlotsToSetupPose(); }
+    const state = new spine.AnimationState(new spine.AnimationStateData(data));
+    setupTracks(state, data, shot.tracks || []);
+    const fps = shot.fps || 30, dt = 1 / fps, n = shot.frames || 1;
+    const driven = Object.keys(shot.bones || {}).map((n) => skeleton.findBone(n));
+    const step = (t, d, physics) => {
+      // 被驱动的骨骼每帧先回到 setup，再由动画（若有关键帧）和驱动表达式叠加；否则没被动画打帧的骨骼会逐帧累加 b.x
+      for (const b of driven) if (b) b.setToSetupPose();
+      state.update(d); state.apply(skeleton);
+      drive(skeleton, shot.bones, t);
+      skeleton.update(d);
+      skeleton.updateWorldTransform(physics);
+    };
+    skeleton.setToSetupPose();
+    step(0, 0, spine.Physics.reset);
+    let t = 0;
+    for (let w = 0; w < Math.round((shot.warmup || 0) * fps); w++) { t += dt; step(t, dt, spine.Physics.update); }
+    let cam = job.cam;
+    const frames = [];
+    for (let i = 0; i < n; i++) {
+      if (i > 0 || shot.warmup) { if (i > 0) { t += dt; step(t, dt, spine.Physics.update); } }
+      else step(t, 0, spine.Physics.pose);
+      if (!cam) {
+        const off = new spine.Vector2(), sz = new spine.Vector2();
+        skeleton.getBounds(off, sz, []);
+        const p = job.pad ?? 0.05, s = Math.max(sz.x / job.size[0], sz.y / job.size[1]) * (1 + 2 * p);
+        cam = { x: off.x + sz.x / 2 - (job.size[0] * s) / 2, y: off.y + sz.y / 2 - (job.size[1] * s) / 2, w: job.size[0] * s, h: job.size[1] * s };
+      }
+      frames.push(draw(skeleton, cam, job.bg || [0, 0, 0, 0], pma));
+    }
+    out.push({ name: shot.name, cam, frames });
+  }
+  return out;
+};
+window.listAnimations = async function (skel, atlas) {
+  canvas.width = 4; canvas.height = 4;
+  ctx = new spine.ManagedWebGLRenderingContext(canvas); am = new spine.AssetManager(ctx);
+  const { data } = await loadSkeleton(skel, atlas);
+  return data.animations.map((a) => a.name);
+};
+window.ready = true;
+</script></body></html>

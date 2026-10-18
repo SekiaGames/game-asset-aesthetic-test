@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kurumi 三向漫游</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  /* 布局：全屏 3D 场景，左上一块说明面板（读数用等宽字），手机上左下摇杆、右下按钮。单一深色外观：场景是夜色草地。 */
+  :root {
+    --moss: #1d2620;        /* 页面底色，和场景雾色接近 */
+    --panel: rgba(17, 23, 19, 0.82);
+    --line: #3d4a40;
+    --paper: #edf0e8;       /* 正文 */
+    --muted: #a3ad9f;
+    --petal: #f4a6c3;       /* 强调色：取角色发色 */
+    --petal-ink: #2a1520;
+    --ui: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--moss); color: var(--paper); font: 14px/1.5 var(--ui); overflow: hidden; }
+  canvas { position: fixed; inset: 0; z-index: 0; display: block; touch-action: none; }
+  #hud, #touch, #load { z-index: 1; }
+  #load { position: fixed; inset: 0; display: grid; place-items: center; color: var(--muted); font-family: var(--mono); }
+  #hud { position: fixed; left: 16px; top: calc(16px + env(safe-area-inset-top, 0px)); width: min(380px, calc(100vw - 32px));
+    padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    display: grid; gap: 8px; box-sizing: border-box; }
+  #hud h1 { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; text-wrap: balance; }
+  #hud h1 span { color: var(--petal); }
+  .keys { display: grid; gap: 4px; color: var(--muted); font-size: 12.5px; }
+  .k { display: inline-block; min-width: 1.5em; padding: 0 4px; margin-right: 2px; border: 1px solid var(--line); border-radius: 4px;
+    text-align: center; font: 600 11px/1.6 var(--mono); color: var(--paper); }
+  #state { font: 500 12px/1.6 var(--mono); font-variant-numeric: tabular-nums; color: var(--paper); }
+  #state b { color: var(--petal); font-weight: 700; }
+  .note { margin: 0; color: var(--muted); font-size: 12px; max-width: 60ch; }
+  #touch { position: fixed; left: 0; right: 0; bottom: 0; padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; pointer-events: none; }
+  #stick { width: 116px; height: 116px; border-radius: 50%; background: var(--panel); border: 1px solid var(--line);
+    position: relative; pointer-events: auto; touch-action: none; }
+  #knob { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%;
+    background: var(--petal); opacity: 0.85; }
+  .btns { display: grid; grid-template-columns: repeat(2, auto); gap: 8px; pointer-events: auto; }
+  .btns button { font: 600 13px var(--ui); color: var(--paper); background: var(--panel); border: 1px solid var(--line);
+    border-radius: 8px; padding: 10px 12px; min-width: 64px; cursor: pointer; }
+  .btns button[aria-pressed="true"] { background: var(--petal); color: var(--petal-ink); border-color: var(--petal); }
+  .btns button:focus-visible { outline: 2px solid var(--petal); outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) { #stick { display: none; } }
+  @media (max-width: 520px) { .keys .desk { display: none; } .note { display: none; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "../../node_modules/three/build/three.module.js",
+  "spine-threejs": "../../node_modules/@esotericsoftware/spine-threejs/dist/esm/spine-threejs.mjs"
+} }
+</script>
+</head>
+<body>
+<div id="load">加载骨骼…</div>
+<section id="hud" aria-label="操作说明与状态">
+  <h1>Kurumi <span>三向</span> Spine 角色</h1>
+  <div class="keys">
+    <div class="desk"><span class="k">W</span><span class="k">A</span><span class="k">S</span><span class="k">D</span> 走（相对镜头）　<span class="k">Shift</span> 跑</div>
+    <div class="desk"><span class="k">Q</span><span class="k">E</span> 镜头转 45°　拖动画面：自由转镜头、俯仰　滚轮：远近　<span class="k">P</span> 切 B / B+　<span class="k">F</span> 抽帧</div>
+    <div>手机：左下摇杆走，拖动画面转镜头</div>
+  </div>
+  <div id="state" aria-live="polite"></div>
+  <p class="note">正、侧、背三套 Spine 4.2 骨骼，按「角色朝向 − 镜头方向」的夹角切换，侧面朝左时镜像。走和跑来自同一段 CMU 动捕，按三台正交相机投影成三个视角的骨骼动画。B+ 在每个扇区里再按偏离角压窄、放宽身体，并让头相对身体平移。</p>
+</section>
+<div id="touch">
+  <div id="stick" aria-label="移动摇杆"><div id="knob"></div></div>
+  <div class="btns">
+    <button id="btn-left" type="button" aria-label="镜头左转 45 度">⟲ 45°</button>
+    <button id="btn-right" type="button" aria-label="镜头右转 45 度">45° ⟳</button>
+    <button id="btn-run" type="button" aria-pressed="false">跑</button>
+    <button id="btn-mode" type="button" aria-pressed="false">B 纯切换</button>
+    <button id="btn-steps" type="button" aria-pressed="false">抽帧 关</button>
+  </div>
+</div>
+<script type="module" src="main.js"></script>
+</body>
+</html>

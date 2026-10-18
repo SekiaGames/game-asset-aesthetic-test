@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-18",
+  "scope": "Packaging, syntax, links and meaningful offline smoke checks; no GPU inference or full engine validation.",
+  "skills": [
+    {
+      "name": "game-asset-video-sprites",
+      "skill_creator": true,
+      "python_parsed": 4,
+      "links": "passed",
+      "code_hashes": "passed",
+      "content_markers": "passed"
+    },
+    {
+      "name": "game-asset-spine-cutout",
+      "skill_creator": true,
+      "python_parsed": 8,
+      "links": "passed",
+      "code_hashes": "passed",
+      "content_markers": "passed"
+    },
+    {
+      "name": "game-asset-spine-portrait",
+      "skill_creator": true,
+      "python_parsed": 8,
+      "links": "passed",
+      "code_hashes": "passed",
+      "content_markers": "passed"
+    },
+    {
+      "name": "game-asset-spine-multiview",
+      "skill_creator": true,
+      "python_parsed": 10,
+      "links": "passed",
+      "code_hashes": "passed",
+      "content_markers": "passed"
+    },
+    {
+      "name": "game-asset-blocky-character",
+      "skill_creator": true,
+      "python_parsed": 7,
+      "links": "passed",
+      "code_hashes": "passed",
+      "content_markers": "passed"
+    },
+    {
+      "name": "game-asset-blocky-hair",
+      "skill_creator": true,
+      "python_parsed": 7,
+      "links": "passed",
+      "code_hashes": "passed",
+      "content_markers": "passed"
+    },
+    {
+      "name": "game-asset-blocky-qa",
+      "skill_creator": true,
+      "python_parsed": 4,
+      "links": "passed",
+      "code_hashes": "passed",
+      "content_markers": "passed"
+    },
+    {
+      "name": "game-asset-tts-narration",
+      "skill_creator": true,
+      "python_parsed": 6,
+      "links": "passed",
+      "code_hashes": "passed",
+      "content_markers": "passed"
+    }
+  ],
+  "file_count": 134,
+  "bytes": 5927052,
+  "smoke_checks": [
+    {
+      "name": "sprite-palette-alpha-loop",
+      "status": "passed",
+      "frames": 5,
+      "off_palette": 0,
+      "fractional_alpha": 0,
+      "sheet_frames": 4
+    },
+    {
+      "name": "clothed-template-regression",
+      "status": "passed",
+      "original_spec_equal": true,
+      "cubes": 178,
+      "atlas": [
+        256,
+        256
+      ]
+    },
+    {
+      "name": "coplanar-positive-and-repair",
+      "status": "passed",
+      "before_pairs": 1,
+      "after_pairs": 0,
+      "upstream_forge": "existing local installation"
+    },
+    {
+      "name": "spine-atlas-official-runtime",
+      "status": "passed",
+      "region_count": 1,
+      "runtime": "existing installed spine-core 4.2",
+      "missing_attachments": 0
+    },
+    {
+      "name": "tts-client-parser-and-cer",
+      "status": "passed",
+      "requests": 4,
+      "transport": "local stub; no model inference",
+      "sample_rate": 24000,
+      "failed_request_exit": 1,
+      "chinese_cer": "identity and missing-text checks"
+    },
+    {
+      "name": "javascript-syntax",
+      "status": "passed",
+      "files": 6
+    }
+  ],
+  "external_pages": "Per-resource checked/history status in sources.md",
+  "limitations": [
+    "No AI weights or third-party models bundled",
+    "No new TTS inference or listening test",
+    "Research scripts require supplied intermediate inputs",
+    "Keyword scan supplements explicit allowlists and manual review; not a semantic proof"
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "name": "game-asset-spine-multiview",
+  "date": "2026-10-18",
+  "execution_mode": "prepared-inputs",
+  "code": [
+    {
+      "origin": "scripts/dir-rig.py",
+      "path": "assets/workspace/scripts/dir-rig.py",
+      "source_sha256": "14db96a21bab36bc66fcac0caba4edc2d337755d763286d59c0b9a9db805d8e0",
+      "sha256": "dd4c3ad8c31b2653ef5074c18208a3b735553bc937e818c2cb74089d2ae3928a",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/dst-demo-build.py",
+      "path": "assets/workspace/scripts/dst-demo-build.py",
+      "source_sha256": "a01bd0a3a778d782489544a1db16ec43002ec8b4ad07b8d604eaff3c08710321",
+      "sha256": "0af3e906cd2b7bcb419a4a60f5c8d58f4412c36f3df506233e8eafc3993f7c0b",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/dst-manifest.py",
+      "path": "assets/workspace/scripts/dst-manifest.py",
+      "source_sha256": "290c08702447efa844c136041f88c5b5da3240752b5ac85830e6ed97994e34d5",
+      "sha256": "9f6fd8f1505d10129797e64ce882656843a9a62827ed6972c1cd517cc1943dfb",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/front-rig.py",
+      "path": "assets/workspace/scripts/front-rig.py",
+      "source_sha256": "02386bfba461ce2d3e87c90a5ad7bd0c381ad440bbc8bdac2d509d1f283ac9bd",
+      "sha256": "b651f897d24e96abfcc97a4a3ff67c16c60357515f6c5877e3f459a9b84b3ba3",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/mocap-to-vrm.py",
+      "path": "assets/workspace/scripts/mocap-to-vrm.py",
+      "source_sha256": "611d6759ffa13179ee8a9127e281c93df221cb8bc866c7e0cfa63844a7ebd7e0",
+      "sha256": "3509dff63c6b0e9f76b5a099b2af7c9eac45ff239fec6246b940a0b52109240a",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/mocap-views.py",
+      "path": "assets/workspace/scripts/mocap-views.py",
+      "source_sha256": "e8162a2e9d8b30834fdf3c4ae75b09143fd14a2ffbf1f5b7e6b20ec93ac56f31",
+      "sha256": "7cc5303a1d802459c96c4da731256d127684c770d496c25818846da48d300d6f",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/seethrough-to-layers.py",
+      "path": "assets/workspace/scripts/seethrough-to-layers.py",
+      "source_sha256": "dd1f43a7356bf56bd14286fefb14f88241cfdd681b601c2bc13124c41f35f3c7",
+      "sha256": "550d6f7d152dfffa6cd34fe0d363393caf1fc3985d7569a227e2939ac220d9b8",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/sheet-split.py",
+      "path": "assets/workspace/scripts/sheet-split.py",
+      "source_sha256": "87691054a540ae6a91b70743dc0cd4e28bfb092b3153303836af68d15f963735",
+      "sha256": "399fa586d58d8823a904f07755cd8c74c3bd34b59df3621a52de1f152e8da8ac",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-pack.py",
+      "path": "assets/workspace/scripts/spine-pack.py",
+      "source_sha256": "effc525cc6c5d3b4e72098cf6589b066d71254d7f74d491d5f76ea5c20dea719",
+      "sha256": "c230b95069e5367c76482fc206aba5586d5286d6bc10afaad6827a49b903043b",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-verify.mjs",
+      "path": "assets/workspace/scripts/spine-verify.mjs",
+      "source_sha256": "8c84a5d05bbef1e17ebac9d0387c1c9cc9ae75ac9cfaff9acd12943f3b134d84",
+      "sha256": "8c84a5d05bbef1e17ebac9d0387c1c9cc9ae75ac9cfaff9acd12943f3b134d84",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/upscale-anime.py",
+      "path": "assets/workspace/scripts/upscale-anime.py",
+      "source_sha256": "4583c9d67bc9e00275b836fdf8de5f31bc3a5982bd97de3fb72d475a5a1e498b",
+      "sha256": "281c266d3297349a3415482d9ec411f57b122d0a38175b8005281ca238a9303c",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "src/dst-demo/index.html",
+      "path": "assets/workspace/src/dst-demo/index.html",
+      "source_sha256": "fc7d8c0696967f9ac8fd5f7aec170b1d6d61db90d4361466cb2591fa31d0769b",
+      "sha256": "9cc1e3c0cc6d7ceeef9a41d274b6f26e95fdb2ca77b3c761f3635718c2bfdd0c",
+      "adaptations": []
+    },
+    {
+      "origin": "src/dst-demo/main.js",
+      "path": "assets/workspace/src/dst-demo/main.js",
+      "source_sha256": "03504779375d1c28376c3181c7eab542debf29c54bd107c8dac48af473699fde",
+      "sha256": "dd58aa94be83598e3e74124205e54d31fadf40d29080d1fdfea442f450b3eac8",
+      "adaptations": []
+    },
+    {
+      "origin": "config/dir-view-prompts.json",
+      "path": "assets/workspace/config/dir-view-prompts.json",
+      "source_sha256": "f3a1241be91cf877e9e166c10e2610df846024fb140ef53fe9fd62ebe29af966",
+      "sha256": "5c17fdde2d7820d29cd909488d23a6ae824f267c8d804c83cab6f9021427ed01",
+      "adaptations": []
+    },
+    {
+      "origin": "config/run-pose-prompts.json",
+      "path": "assets/workspace/config/run-pose-prompts.json",
+      "source_sha256": "f1ef55b138066ba4b49aa5dc1acd514f81c131d14bd5dfafac2df95b975ccf38",
+      "sha256": "fd7a8023eb6bdd9234f1e9bccc3fff164403c27425f2237a29b07136f775b898",
+      "adaptations": []
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/multidir-spine-tutorial.md",
+      "sha256": "97545894d4b9f5131167d49071fdb5f3cacfaf2ecb8cf79e140644b2dd357cb8"
+    },
+    {
+      "path": "docs/base-body-outfit-plan.md",
+      "sha256": "439b99e142b1fabdbdc6b278d4cc269fd3852a2cd264952d97248e767735ed94"
+    },
+    {
+      "path": "reports/dir-dst-demo-2026-10-10.md",
+      "sha256": "8a381a4d617b4b7f94e2a21a6cb08f0fb8dc6d7e6639b5a81121a4983327d034"
+    }
+  ]
+}

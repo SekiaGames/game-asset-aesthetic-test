@@ -1,0 +1,398 @@
+[
+  {
+    "path": "README.md",
+    "sha256": "20c41b5861a604c904db65596fecb873a99044f9e6ca7d3dfa66ce14bcf71779",
+    "disposition": "project-context",
+    "skills": [],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "AGENTS.md",
+    "sha256": "2edfc953c5e9a32316ee7471c474fcd929b1682f7c5295e42390029739faf5b4",
+    "disposition": "project-context",
+    "skills": [],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/3d-route-plan.md",
+    "sha256": "ff2c8dbe6e9ba7b39c271ef3ab1183d4981b65e8908710218ee60ded00b8b61a",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "docs/base-body-outfit-plan.md",
+    "sha256": "439b99e142b1fabdbdc6b278d4cc269fd3852a2cd264952d97248e767735ed94",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-spine-multiview"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/blocky-character-guide.md",
+    "sha256": "33d7e1d0a8285a51216f644a7ab2271a4603a54e3bac3c243e2a97fad2ee0a97",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-character"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/blocky-community-analysis.md",
+    "sha256": "4f116fa4922c5aff70ce1a61eb498b9e8fe4410737321f39798fc2808bbe5b9f",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-character",
+      "game-asset-blocky-hair"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/blocky-hair-lessons.md",
+    "sha256": "b5d2a00f448e43abbdf1f0cc44b5c005e490e0097da4ba656ceff7590213c853",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-hair"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/blocky-physics-guide.md",
+    "sha256": "f76561c8118626121b8c8ef52bf400e24d8c415993a4d2adb96ea258377d41ed",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-qa"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/blocky-style-reference.md",
+    "sha256": "09d22263bce6e052e6225efe78317cc8a19766741d2a82e3a5c350d1c263ba2d",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-character"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/jenny-style-modeling-guide.md",
+    "sha256": "2e12661a4af9cc65aec305f4e1583ed52fa5870129efb4d04395ee87c7217f7a",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-qa"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/multidir-spine-tutorial.md",
+    "sha256": "97545894d4b9f5131167d49071fdb5f3cacfaf2ecb8cf79e140644b2dd357cb8",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-spine-multiview"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/oc-to-spine-tutorial.md",
+    "sha256": "54cd368ac01db3094933409b12e38322a9e38564ba2af6db71f9c68113d91b66",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-spine-portrait"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/pipeline-plan.md",
+    "sha256": "3992c7c413c7b9ec12676166308e617c6543dc415e40a49bad4406e46277f191",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-video-sprites"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/whale-body-detail-methods.md",
+    "sha256": "b92e9f97abb269a39d0dd504b9dc67da20b4e6522b70620b21333bc004f4f58a",
+    "disposition": "excluded",
+    "skills": [],
+    "note": "成人主题体表细节，不发布。"
+  },
+  {
+    "path": "docs/whale-body-workbench.md",
+    "sha256": "8fa55ab5a36668154a4bb0d7e24510b7459ea7c05797001b7d8266ce0721d9fc",
+    "disposition": "excluded",
+    "skills": [],
+    "note": "成人主题试衣工作台与对应交付，不发布。"
+  },
+  {
+    "path": "docs/whale-butt-hair-physics.md",
+    "sha256": "d2ebd994b9d06905fd0bdf2112172015b59cd37432817a9dc9cd877584fabe3a",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-qa"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/whale-surface-seam-fix.md",
+    "sha256": "2db6d4a87d90b1386a3a464350481f7c42699e88e1afbd5231d57848cb2f0a67",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-qa"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "docs/whale-version-history.md",
+    "sha256": "4ad9b80b93d9324d8a99d755a807cc0c04aa37c062f4cd967a838a0d86e6e1dc",
+    "disposition": "excluded",
+    "skills": [],
+    "note": "角色成人主题资产与版本索引，不公开当前模型入口。"
+  },
+  {
+    "path": "docs/whale-wide-torso.md",
+    "sha256": "31f8ecdc5efd4adff395bbcb4f4cd7d87bcba3bd3aed6b18244c1b0681d9e47f",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-qa"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/ai-art-video-2026-10-13.md",
+    "sha256": "fb73310265b5903c557781f5f5d1e75ba88e7dae8c8e0f8a5e17c78ab01540ee",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-tts-narration"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/blocky-anime-template-2026-10-11.md",
+    "sha256": "df0aaa19cdc7bb26a3284885a5afb545dd3358d4739cd656c320a531fe80d5d2",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-blocky-character"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/blocky-dance-generality-2026-10-14.md",
+    "sha256": "e213f02b0161381b8b39247a7d5822084d5d307d04c1a64df1b175485ec2a5dd",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-qa"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/blocky-extracted-model-methods-2026-10-12.md",
+    "sha256": "d5bf2311fca0231511a94c05a2d02ba87da4838d483d26c957163f50da58125e",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-qa"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/blocky-mc-2026-10-11.md",
+    "sha256": "dfc60bde0363ff1eb88f1281ae76ae60ea063c7da6a84424b4d7cd9452010f87",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-character",
+      "game-asset-blocky-hair"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/blocky-session-summary-2026-10-12.md",
+    "sha256": "5ee0e0c4958a417c7f4e2049cfc8f7ff1f05c8f84ebaea27e695560f5e957163",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-blocky-qa"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/cutout-rig-quicktest-2026-10-07.md",
+    "sha256": "7dc4975ce6c18ad5239f5e175fa45fb78b2cf6ccd4ee90998512fb45fb761a46",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-spine-cutout"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/dir-dst-demo-2026-10-10.md",
+    "sha256": "8a381a4d617b4b7f94e2a21a6cb08f0fb8dc6d7e6639b5a81121a4983327d034",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-spine-multiview"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/front-rig-ryza-2026-10-09.md",
+    "sha256": "5d2aadce0a56fc4f0cbeac96bad16315b9a392e6d15a4399bb151ad30fa055cb",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-spine-portrait"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/gvhmr-mediapipe-2026-10-08.md",
+    "sha256": "32c818f97904e87fee0e73e2b0071a37a03f3c3e490e7fd7c2d5d324956d0c62",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/katana-action-2026-10-08.md",
+    "sha256": "5d3b94ac81720294e2f54f82e530305ac678d5cdd94704d0930daef1f3f4bfcc",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-spine-cutout"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/katana-jitter-2026-10-08.md",
+    "sha256": "4b223b5b3bb8be2eb211c507733c297b9f224a2bc2cec6ae31f9bdba218122fc",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/mocap-retarget-2026-10-08.md",
+    "sha256": "b83a9b1ab60d919c34b304d39d99b18170884a9f80cc85ac7fa557265c40f81b",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/part3d-2026-10-10.md",
+    "sha256": "9a7a30cce067dda08f0401d626a9316a2f6c4f629f38d11051a177b6fca696a2",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/pipeline-validation-2026-10-07.md",
+    "sha256": "7bad5d9c1165e79056cce8822a6f847876d273a12cbb40c1edb134615442851c",
+    "disposition": "summarized",
+    "skills": [
+      "game-asset-video-sprites"
+    ],
+    "note": "人工提炼；不复制原文。"
+  },
+  {
+    "path": "reports/silent-dmg-scenes-2026-10-17.md",
+    "sha256": "371d1916c7af8079b94b156da76f4739612dacd1fe5fe6e18f7ae71a74a9a735",
+    "disposition": "excluded",
+    "skills": [],
+    "note": "成人场景、动作与求解流程，不发布。"
+  },
+  {
+    "path": "reports/steam-body-variants-regions-2026-10-12.md",
+    "sha256": "a05a153c57a36a70be291fe0a77a67c81b697c2a4d815a0eb5c55878980ba962",
+    "disposition": "excluded",
+    "skills": [],
+    "note": "成人主题发行核查，不发布。"
+  },
+  {
+    "path": "reports/vrm-dress-grip-2026-10-08.md",
+    "sha256": "9413ac1c64a4d4bb10560348f33a91233b0c8377209257eda97e77aed7b26087",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/vrm-outfit-v2-katana-2026-10-08.md",
+    "sha256": "c08f02765a857a856aeedf496c42a369f8600a935bc5b63fe3522a8453316b11",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/vroid-face-volume-2026-10-11.md",
+    "sha256": "89ce0416c5358572de7e64ddd09c2b6dba113fe0caa1a4031b244237a40473f2",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/vroid-feature-geometry-2026-10-11.md",
+    "sha256": "499120fd8ca7b2ed6245a8463ddf8dd107b60c609158d920f86159bb0b53d2c4",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/vroid-head-local-smooth-2026-10-11.md",
+    "sha256": "b371d7414a960808a24ddcfb013f7ff5cd8cf4ec2be726e52bbdc637bff8534b",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/vroid-parametric-body-2026-10-11.md",
+    "sha256": "29b7302a00b3e308025c69ece662da9d363c3e978a611f4277af4dcaa678db2a",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "reports/vroid-texture-alignment-2026-10-11.md",
+    "sha256": "664794e64c195445f3ff7f605ce270ff88c34d067f75861d43414cf850fb8665",
+    "disposition": "unpublished",
+    "skills": [],
+    "note": "对应路线未在本仓库发布；不复制原文。"
+  },
+  {
+    "path": "voice-drama/README.md",
+    "sha256": "5970f6f84bef5f8c38cd6eb67e2674689ecde4818174d432aed2a570a73d4e8d",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-tts-narration"
+    ],
+    "note": "只提取普通语音方法；原文、场景与音频不发布。"
+  },
+  {
+    "path": "voice-drama/reports/2026-10-15-model-usage.md",
+    "sha256": "9a87b6ca83efdb24d9e98b01b08e0e35fef3e88189e55e3e17a41fd91abe1d41",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-tts-narration"
+    ],
+    "note": "只提取普通语音方法；原文、场景与音频不发布。"
+  },
+  {
+    "path": "voice-drama/reports/2026-10-15-emotion-variables.md",
+    "sha256": "0f46205efd1db59c550324703d055fcef379ca1db8ae94ab121d1eb2342dbc5c",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-tts-narration"
+    ],
+    "note": "只提取普通语音方法；原文、场景与音频不发布。"
+  },
+  {
+    "path": "voice-drama/reports/2026-10-15-emotion-and-room-tone.md",
+    "sha256": "aa0c47e9bc1add428ac58ef4961e5fc5c445bd9c0a1478ecca201875d1f22108",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-tts-narration"
+    ],
+    "note": "只提取普通语音方法；原文、场景与音频不发布。"
+  },
+  {
+    "path": "voice-drama/reports/2026-10-15-tts-sfx-test.md",
+    "sha256": "aea19bec4f75bb621d1154ba64eb9218d7119eb2b0a1c702b4d4a1d7d9e0fabc",
+    "disposition": "mixed-extracted",
+    "skills": [
+      "game-asset-tts-narration"
+    ],
+    "note": "只提取普通语音方法；原文、场景与音频不发布。"
+  }
+]

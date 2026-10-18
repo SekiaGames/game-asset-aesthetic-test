@@ -1,0 +1,138 @@
+{
+  "name": "game-asset-spine-portrait",
+  "date": "2026-10-18",
+  "execution_mode": "prepared-inputs",
+  "code": [
+    {
+      "origin": "scripts/comfy-run-api.py",
+      "path": "assets/workspace/scripts/comfy-run-api.py",
+      "source_sha256": "ead0f4b4d034b08dc98ac4824de4c1b3d0c5b13f7bc065cfff4131aeb437d6cb",
+      "sha256": "954450212f5f11b48704c7acd1fc38f8a534c23c5d8dae1948cdf507f03a4240",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/front-rig.py",
+      "path": "assets/workspace/scripts/front-rig.py",
+      "source_sha256": "02386bfba461ce2d3e87c90a5ad7bd0c381ad440bbc8bdac2d509d1f283ac9bd",
+      "sha256": "b651f897d24e96abfcc97a4a3ff67c16c60357515f6c5877e3f459a9b84b3ba3",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/key-unmix.py",
+      "path": "assets/workspace/scripts/key-unmix.py",
+      "source_sha256": "bb07a5d0da5577cd24d32e85323ebeb13dfab512f15b43d3cfff587e72dec4ac",
+      "sha256": "bb07a5d0da5577cd24d32e85323ebeb13dfab512f15b43d3cfff587e72dec4ac",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/pose-extract.py",
+      "path": "assets/workspace/scripts/pose-extract.py",
+      "source_sha256": "41cfd96ca0370fb5211461c6347c2c94f89ec78599f2d68d2c392f36f1dc4e7a",
+      "sha256": "5ecf51ae88bda6ceed6d704fd85108fefad5d49e963586b226235de82ec3fa17",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/seethrough-to-layers.py",
+      "path": "assets/workspace/scripts/seethrough-to-layers.py",
+      "source_sha256": "dd1f43a7356bf56bd14286fefb14f88241cfdd681b601c2bc13124c41f35f3c7",
+      "sha256": "550d6f7d152dfffa6cd34fe0d363393caf1fc3985d7569a227e2939ac220d9b8",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-inspect.mjs",
+      "path": "assets/workspace/scripts/spine-inspect.mjs",
+      "source_sha256": "91f4b6b438d1c62b4706f18c9367ff99b759fecc47997645b8a94a032fe237b1",
+      "sha256": "91f4b6b438d1c62b4706f18c9367ff99b759fecc47997645b8a94a032fe237b1",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/spine-pack.py",
+      "path": "assets/workspace/scripts/spine-pack.py",
+      "source_sha256": "effc525cc6c5d3b4e72098cf6589b066d71254d7f74d491d5f76ea5c20dea719",
+      "sha256": "c230b95069e5367c76482fc206aba5586d5286d6bc10afaad6827a49b903043b",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-render.html",
+      "path": "assets/workspace/scripts/spine-render.html",
+      "source_sha256": "351ffa0d35e392b14af0fd72ec7b0696f66e2f7c3f5fc02cda88ff4c910d6420",
+      "sha256": "351ffa0d35e392b14af0fd72ec7b0696f66e2f7c3f5fc02cda88ff4c910d6420",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/spine-render.mjs",
+      "path": "assets/workspace/scripts/spine-render.mjs",
+      "source_sha256": "f919e9ced05c49ef0cdab79ee6c8eb6c8927d3a0d0e9ceb8803a3e8c3e936f52",
+      "sha256": "f919624d9dfb38d27e6d0cdc5f70131c283b614bb8bc5fc0e0a71804e5be3db8",
+      "adaptations": [
+        "默认静态根目录改为包内 workspace，仍支持 --root。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-verify.mjs",
+      "path": "assets/workspace/scripts/spine-verify.mjs",
+      "source_sha256": "8c84a5d05bbef1e17ebac9d0387c1c9cc9ae75ac9cfaff9acd12943f3b134d84",
+      "sha256": "8c84a5d05bbef1e17ebac9d0387c1c9cc9ae75ac9cfaff9acd12943f3b134d84",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/spine-video.py",
+      "path": "assets/workspace/scripts/spine-video.py",
+      "source_sha256": "a36ea73a8b144c4df75cb0e55fdcac901c1dd138e9fa5582f1573a0487b5099a",
+      "sha256": "cbbd1c43cdbc5e3b85175006675490121178ce4782ef7cf672483ddcadb4413e",
+      "adaptations": [
+        "与包内 spine-render 的默认根目录保持一致。"
+      ]
+    },
+    {
+      "origin": "scripts/upscale-anime.py",
+      "path": "assets/workspace/scripts/upscale-anime.py",
+      "source_sha256": "4583c9d67bc9e00275b836fdf8de5f31bc3a5982bd97de3fb72d475a5a1e498b",
+      "sha256": "281c266d3297349a3415482d9ec411f57b122d0a38175b8005281ca238a9303c",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "config/workflows/see-through.json",
+      "path": "assets/workspace/config/workflows/see-through.json",
+      "source_sha256": "427640f9bec32570b02eadb867cef1784d9ade4183caf4aa02a6327f20f5a31b",
+      "sha256": "427640f9bec32570b02eadb867cef1784d9ade4183caf4aa02a6327f20f5a31b",
+      "adaptations": []
+    },
+    {
+      "origin": "config/patches/see-through-head-hires.patch",
+      "path": "assets/workspace/config/patches/see-through-head-hires.patch",
+      "source_sha256": "b138028b33d559a7a7a58dd2bf6ab33a188db4fcc462fd7a315fa265ef5d7de1",
+      "sha256": "b138028b33d559a7a7a58dd2bf6ab33a188db4fcc462fd7a315fa265ef5d7de1",
+      "adaptations": []
+    },
+    {
+      "origin": "config/front-edit-prompts-rgba.json",
+      "path": "assets/workspace/config/front-edit-prompts-rgba.json",
+      "source_sha256": "01c93610d97aea315790e02d9dc7770f975724981ece01e9bc702c386513a9d2",
+      "sha256": "731e6ebddb4936fa994a9b9caa8b253d6faf220f3628c78db161da0a17100704",
+      "adaptations": []
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/oc-to-spine-tutorial.md",
+      "sha256": "54cd368ac01db3094933409b12e38322a9e38564ba2af6db71f9c68113d91b66"
+    },
+    {
+      "path": "reports/front-rig-ryza-2026-10-09.md",
+      "sha256": "5d2aadce0a56fc4f0cbeac96bad16315b9a392e6d15a4399bb151ad30fa055cb"
+    }
+  ]
+}

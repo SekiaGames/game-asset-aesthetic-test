@@ -1,0 +1,77 @@
+{
+ "_说明": "透明路线（qwen21-edit-2k-rgba）：输入是透明背景的 RGBA（front.png 由绿幕图经 key_unmix 抠出），输出也要透明背景。由 front-edit-prompts.json 去掉绿幕说法、加透明背景句得到。2026-10-09。",
+ "E1_blankface": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: erase the eyes, the eyebrows, the eyelashes, the mouth and the blush from the face, leaving a completely blank smooth skin face with the same face outline and skin color. Keep everything else exactly the same: same pose, same position, same size, hair, dress and body unchanged. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "E2_closed": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character gently closes both eyes (relaxed closed eyelids drawn as soft curved lash lines, like a blink). Keep everything else exactly the same: same eyebrows, same small smile, same pose, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "E3_mouth_ah": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character opens her mouth wide as if saying \"ah\" cheerfully, showing the inside of the mouth and a bit of tongue. Keep everything else exactly the same: same open eyes, same eyebrows, same pose, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "E4_happy": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: give the character a very happy expression: eyes closed in happy upward arcs (^ ^ shape), big open smile, light pink blush on the cheeks. Keep everything else exactly the same: same pose, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "E5_noarms": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: remove both arms completely, including the short sleeves and the hands, as if the character were a dress form. Complete the sides of the dress bodice and the skirt where the arms and hands used to cover them, with clean shoulders. Keep the head, hair, dress, legs and shoes exactly the same, same position and size. Leave it transparent where the arms were. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "E6_hair": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: keep only the hair, as a separate wig seen from the front. Remove the face, the neck, the body, the dress, the arms and the legs, and fill the area where the face was with the back inner side of the same pink hair (darker pink), so the hair is one complete piece. Same hair shape, position, size and colors. Everything else transparent. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "E8_bald": {
+  "_说明": "§13.6 方案 A：在空白脸 E1 上去掉全部头发，补出完整的脸（自带轮廓线、额头、脸侧、耳朵）作脸层；头发层改为原图 − 本图的差分。2026-10-09。",
+  "input": "E1_blankface.png",
+  "prompt": "Edit <image1>: remove all of the hair completely (the bangs, the side hair, the back hair and the hair clip), revealing the bare head underneath: a smooth bald scalp in the same skin color, the complete forehead, the full face outline on both sides drawn with the same thin line art, and both ears. Keep the face blank without eyes or mouth. Keep the neck, the dress, the arms and the legs exactly the same, same pose, same position and same size. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "E7_legs": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: keep only the two legs and the shoes. Remove the head, hair, dress, arms and upper body. Draw the legs fully up to the hips as plain skin-colored thighs (like a mannequin's legs, no underwear details), same leg shape, position, size and skin color, same shoes. Everything else transparent. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "G_wave": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character raises her right arm (the arm on the viewer's left side) and waves: upper arm out to the side, elbow bent, forearm pointing up, open hand with palm facing the viewer at about head height, beside the face. Keep everything else exactly the same: the other arm still hanging down, same face, same pose of the body and legs, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "G_chest": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character places her right hand (the hand on the viewer's left side) flat on the upper center of her chest, palm on the chest, elbow bent and relaxed. Keep everything else exactly the same: the other arm still hanging down, same face, same body and legs, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "G_mouth": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character covers her mouth with her right hand (the hand on the viewer's left side) as if giggling: fingers together lightly over the mouth, elbow bent down in front of the chest. Keep everything else exactly the same: the other arm still hanging down, same eyes, same body and legs, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "G_clasp": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character clasps both hands together in front of her chest, fingers interlaced, both elbows bent, excited pose. Keep everything else exactly the same: same face, same body and legs, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "G_point": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character raises her right hand (the hand on the viewer's left side) beside her face with the index finger pointing straight up, as if explaining an idea; elbow bent and down near the body, other fingers curled. Keep everything else exactly the same: the other arm still hanging down, same face, same body and legs, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "G_hip": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character puts her left hand (the hand on the viewer's right side) on her hip, elbow bent outward to the side. Keep everything else exactly the same: the other arm still hanging down, same face, same body and legs, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "G_behind": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character holds both hands behind her back, so the hands are hidden behind her; only the upper arms and elbows are visible going back at her sides. Keep everything else exactly the same: same face, same body and legs, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "G_think": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the character rests her chin on her right hand (the hand on the viewer's left side) in a thinking pose: index finger and thumb touching the chin, elbow bent down in front of the body. Keep everything else exactly the same: the other arm still hanging down, same face, same body and legs, same position and size, same hair and dress. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "GA_right": {
+  "prompt": "Edit <image1>: keep only the character's right arm (the arm on the viewer's left side), including its short white sleeve and the whole hand with all fingers, exactly as it is: same pose, same position, same size, same colors. Remove everything else (head, face, hair, body, dress, legs and the other arm) and leave it transparent. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "GA_left": {
+  "prompt": "Edit <image1>: keep only the character's left arm (the arm on the viewer's right side, with the hand on the hip), including its short white sleeve and the whole hand with all fingers, exactly as it is: same pose, same position, same size, same colors. Remove everything else (head, face, hair, body, dress, legs and the other arm) and leave it transparent. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "GA_both": {
+  "prompt": "Edit <image1>: keep only the character's two arms, including both short white sleeves and both hands with all fingers, exactly as they are: same pose, same position, same size, same colors. Remove everything else (head, face, hair, body, dress and legs) and leave it transparent. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ }
+}

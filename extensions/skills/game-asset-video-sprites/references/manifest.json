@@ -1,0 +1,49 @@
+{
+  "name": "game-asset-video-sprites",
+  "date": "2026-10-18",
+  "execution_mode": "portable",
+  "code": [
+    {
+      "origin": "scripts/comfy-run-api.py",
+      "path": "assets/workspace/scripts/comfy-run-api.py",
+      "source_sha256": "ead0f4b4d034b08dc98ac4824de4c1b3d0c5b13f7bc065cfff4131aeb437d6cb",
+      "sha256": "954450212f5f11b48704c7acd1fc38f8a534c23c5d8dae1948cdf507f03a4240",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/contact-sheet.py",
+      "path": "assets/workspace/scripts/contact-sheet.py",
+      "source_sha256": "1122e11eb8122f1eac23b3497141449288d28026231523ea0353c8a4f646dcf6",
+      "sha256": "1122e11eb8122f1eac23b3497141449288d28026231523ea0353c8a4f646dcf6",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/key-unmix.py",
+      "path": "assets/workspace/scripts/key-unmix.py",
+      "source_sha256": "bb07a5d0da5577cd24d32e85323ebeb13dfab512f15b43d3cfff587e72dec4ac",
+      "sha256": "bb07a5d0da5577cd24d32e85323ebeb13dfab512f15b43d3cfff587e72dec4ac",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/sprite-postprocess.py",
+      "path": "assets/workspace/scripts/sprite-postprocess.py",
+      "source_sha256": "cce2ef51ac200cc0f1573a22973d620cab2bd075b214fe46030e0c826f9f13b7",
+      "sha256": "6a331ad432aa548b3357eb3cf645d5a03cc3f87e24397a3ac41999c4f127781d",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/pipeline-plan.md",
+      "sha256": "3992c7c413c7b9ec12676166308e617c6543dc415e40a49bad4406e46277f191"
+    },
+    {
+      "path": "reports/pipeline-validation-2026-10-07.md",
+      "sha256": "7bad5d9c1165e79056cce8822a6f847876d273a12cbb40c1edb134615442851c"
+    }
+  ]
+}

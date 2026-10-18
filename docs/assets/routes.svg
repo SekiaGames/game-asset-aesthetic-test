@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="550" viewBox="0 0 1280 550" role="img" aria-labelledby="title desc">
+  <title id="title">Choose a route: 8 skills in three families</title>
+  <desc id="desc">A character reference branches into 2D sprites and Spine, or blocky modeling. TTS narration sits alongside both routes.</desc>
+  <defs>
+    <style>.sans{font-family:Inter,Segoe UI,Arial,sans-serif}.mono{font-family:Consolas,Menlo,monospace}.title{font-size:21px;font-weight:650;fill:#edf2f8}.small{font-size:14px;fill:#a9b8cb}.line{stroke:#415269;stroke-width:2;fill:none}.node{fill:#182230;stroke:#34465c;stroke-width:1.2}.skill{font-size:13px;fill:#c4d0de}</style>
+  </defs>
+  <rect width="1280" height="550" rx="18" fill="#111a25"/>
+  <text x="34" y="44" class="mono" font-size="13" fill="#8c9eb6" letter-spacing="2">CHOOSE YOUR NEXT STEP</text>
+  <text x="34" y="77" class="sans" font-size="24" fill="#edf2f8" font-weight="600">One reference. Two ways to build.</text>
+  <g transform="translate(34 228)">
+    <rect width="190" height="118" rx="12" fill="#21362f" stroke="#47705e"/>
+    <rect x="19" y="20" width="26" height="31" rx="4" fill="none" stroke="#8ce7bc" stroke-width="2"/>
+    <path d="m24 44 7-9 5 5 5-4M25 27h5" fill="none" stroke="#8ce7bc" stroke-width="2"/>
+    <text x="20" y="77" class="sans title">Reference</text>
+    <text x="20" y="99" class="mono" font-size="12" fill="#a7cdb8">ART + TARGET FORMAT</text>
+  </g>
+  <path d="M224 287h31V190h30m-30 97v97h30" class="line"/>
+  <g fill="#111a25" stroke="#70839c" stroke-width="2"><circle cx="255" cy="287" r="5"/></g>
+  <g transform="translate(285 108)">
+    <rect width="961" height="164" rx="12" class="node"/>
+    <rect width="4" height="164" rx="2" fill="#79dfb8"/>
+    <text x="22" y="34" class="sans title">2D &amp; SPINE</text>
+    <rect x="290" y="16" width="77" height="24" rx="12" fill="#263b34"/><text x="306" y="33" class="mono" font-size="11" fill="#a4efd1">4 SKILLS</text>
+    <text x="22" y="65" class="sans small">Video → pixel sprites</text>
+    <text x="22" y="89" class="sans small">Cutout animation · portrait rigs</text>
+    <text x="22" y="113" class="sans small">Multiview characters in 3D scenes</text>
+    <path d="M22 137h918" stroke="#30483f"/><text x="22" y="153" class="mono" font-size="10" fill="#79dfb8">FRAME CONSISTENCY / LAYERS / RUNTIME</text>
+    <path d="M520 24v96" stroke="#30483f"/>
+    <g class="mono skill"><text x="548" y="41">video-sprites</text><text x="548" y="65">spine-cutout</text><text x="548" y="89">spine-portrait</text><text x="548" y="113">spine-multiview</text></g>
+    <g fill="#79dfb8"><rect x="536" y="32" width="4" height="10"/><rect x="536" y="56" width="4" height="10"/><rect x="536" y="80" width="4" height="10"/><rect x="536" y="104" width="4" height="10"/></g>
+  </g>
+  <g transform="translate(285 302)">
+    <rect width="961" height="164" rx="12" class="node"/>
+    <rect width="4" height="164" rx="2" fill="#f0b480"/>
+    <text x="22" y="34" class="sans title">BLOCKY CHARACTERS</text>
+    <rect x="290" y="16" width="77" height="24" rx="12" fill="#443428"/><text x="306" y="33" class="mono" font-size="11" fill="#f4c8a3">3 SKILLS</text>
+    <text x="22" y="65" class="sans small">Measured proportions → cubes → pixel textures</text>
+    <text x="22" y="89" class="sans small">Hair silhouette · accessories · inner geometry</text>
+    <text x="22" y="113" class="sans small">Coplanar faces · seams · motion boundaries</text>
+    <path d="M22 137h918" stroke="#524032"/><text x="22" y="153" class="mono" font-size="10" fill="#f0b480">BLOCKBENCH / SHAPE RULES / GEOMETRY QA</text>
+    <path d="M520 24v96" stroke="#524032"/>
+    <g class="mono skill"><text x="548" y="41">blocky-character</text><text x="548" y="65">blocky-hair</text><text x="548" y="89">blocky-qa</text></g>
+    <g fill="#f0b480"><rect x="536" y="32" width="4" height="10"/><rect x="536" y="56" width="4" height="10"/><rect x="536" y="80" width="4" height="10"/></g>
+  </g>
+  <path d="M34 495h1212" stroke="#344356"/>
+  <rect x="34" y="489" width="6" height="13" fill="#bca2f8"/>
+  <text x="54" y="525" class="sans" font-size="17" fill="#e9edf4">Alongside both routes</text>
+  <text x="288" y="525" class="mono" font-size="15" fill="#d6c3ff">TTS NARRATION</text><text x="439" y="525" class="sans small">Voice design → takes → QC → paragraph flow</text>
+</svg>

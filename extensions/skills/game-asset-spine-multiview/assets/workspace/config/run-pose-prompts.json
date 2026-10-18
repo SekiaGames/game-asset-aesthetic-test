@@ -1,0 +1,23 @@
+{
+ "_说明": "正 / 背面跑步关键姿势（同画布编辑，只改手脚）：剪纸骨骼画不出朝镜头弯的膝盖和手肘，正面跑步改为按相位换手脚的图（2026-10-10 用户定）。输入是 sheet-split.py 切出的 output/dir-test/views/front.png、back.png；另一侧用水平镜像。模板 qwen21-edit-2k-rgba。 run_front / run_back 实测：一次就出对（抬膝透视、屈肘握拳、裙摆被顶起），头部偏移约 0px；但只有抬膝两张时中间过渡帧用回直臂直腿，切换很跳 → 补「过渡」姿势 pass_front / pass_back，四张一循环（抬右膝、过渡、抬左膝、过渡）。 之后用户发现侧面跑步是张开的手掌、正 / 背面是握拳 → fist_side：侧面图同画布只把手改成握拳，拆出手臂层，侧面跑步时换上（dir-rig --run-fist）。",
+ "run_front": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the same girl is now running toward the viewer, caught mid-stride. Her right knee is raised high and forward toward the viewer, so her right thigh is foreshortened and her right lower leg hangs down below the knee with the foot lifted off the ground; her left leg is straight with the left foot on the ground. Both elbows are bent at about 90 degrees like a runner: her left arm swings forward with the left fist in front of her chest, her right arm swings back with the right elbow pulled behind her body and the right hand beside her hip. Keep everything else exactly the same: same face and expression, same hair, same dress and skirt shape, same shoes, same head and torso position and size, same anime line art and colors. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "run_back": {
+  "input": "back.png",
+  "prompt": "Edit <image1>, which shows the girl from behind: she is now running away from the viewer, caught mid-stride. Her right knee is raised forward (away from the viewer), so from behind we see her right lower leg bent up with the sole and heel of the right shoe lifted toward the viewer; her left leg is straight with the left foot on the ground. Both elbows are bent at about 90 degrees like a runner: her right arm swings back toward the viewer with the right elbow pulled back, her left arm swings forward and is mostly hidden in front of her body. Keep everything else exactly the same: same back of the head and hair, same dress seen from behind, same shoes, same head and torso position and size, same anime line art and colors. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "pass_front": {
+  "input": "front.png",
+  "prompt": "Edit <image1>: the same girl is running toward the viewer, in the passing position between two strides: both legs are close together under her body and nearly straight, her right foot is on the ground and her left heel is just lifting off the ground behind it. Both elbows are bent at about 90 degrees like a runner, with both fists held at waist level beside her body, close to the dress. Keep everything else exactly the same: same face and expression, same hair, same dress, same shoes, same head and torso position and size, same anime line art and colors. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "pass_back": {
+  "input": "back.png",
+  "prompt": "Edit <image1>, which shows the girl from behind: she is running away from the viewer, in the passing position between two strides: both legs are close together under her body and nearly straight, her right foot is on the ground and her left heel is just lifting so we see a little of the left sole. Both elbows are bent at about 90 degrees like a runner, with both fists held at waist level beside her body. Keep everything else exactly the same: same back of the head, same hair, same dress, same shoes, same head and torso position and size, same anime line art and colors. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ },
+ "fist_side": {
+  "input": "side.png",
+  "prompt": "Edit <image1>: change only her visible hand into a loosely clenched fist, like a runner's hand: fingers curled into the palm and the thumb resting over the fingers. Keep everything else exactly the same: same arm position and angle, same sleeve, same face, hair, dress, legs and shoes, same position and size, same anime line art and colors. This is an RGBA format image with transparency. The image has an alpha channel and a transparent background."
+ }
+}

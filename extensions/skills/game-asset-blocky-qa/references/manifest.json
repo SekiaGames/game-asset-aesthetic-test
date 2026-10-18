@@ -1,0 +1,75 @@
+{
+  "name": "game-asset-blocky-qa",
+  "date": "2026-10-18",
+  "execution_mode": "external-library",
+  "code": [
+    {
+      "origin": "scripts/blocky-bbmodel-census.py",
+      "path": "assets/workspace/scripts/blocky-bbmodel-census.py",
+      "source_sha256": "c34df2037d04916f65afe04c8483a37428a6ab583afa0a87c055a23334b299c6",
+      "sha256": "c34df2037d04916f65afe04c8483a37428a6ab583afa0a87c055a23334b299c6",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/blocky-geometry.py",
+      "path": "assets/workspace/scripts/blocky-geometry.py",
+      "source_sha256": "e6d55cecf54eb11fcf6543cf77f89293b39f75f417cd8196479f55c803424106",
+      "sha256": "a26c3351b3fbc287ad7c9cd5905856126f3b4bf97500346ecd6daad0d72f092b",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/blocky-step-check.py",
+      "path": "assets/workspace/scripts/blocky-step-check.py",
+      "source_sha256": "306065ba2828711d928eeac360d8c1f7c7c59787ed9d90bbe4b4cd816f8c89e5",
+      "sha256": "b9199a24ebb1d34334d7c76d5ff546f81443bc0d23442e0524a9c32968231f4f",
+      "adaptations": [
+        "移除只用于成人模型的默认排除名称，显式 include/exclude 仍可配置。"
+      ]
+    },
+    {
+      "origin": "scripts/blocky-zfight-check.py",
+      "path": "assets/workspace/scripts/blocky-zfight-check.py",
+      "source_sha256": "9315e17710c7db1dee8dd7f9caba19372e491dfd062c4856959ea82e7a3b1c33",
+      "sha256": "cb404ff3bd28e445eb6ef1a618a216ab9827fd1cda53507f877ed6cdb996796c",
+      "adaptations": [
+        "改写成人示例注释与帮助；forge 位置改 FORGE_TOOLS_DIR，修复算法保持。"
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/blocky-physics-guide.md",
+      "sha256": "f76561c8118626121b8c8ef52bf400e24d8c415993a4d2adb96ea258377d41ed"
+    },
+    {
+      "path": "docs/whale-butt-hair-physics.md",
+      "sha256": "d2ebd994b9d06905fd0bdf2112172015b59cd37432817a9dc9cd877584fabe3a"
+    },
+    {
+      "path": "docs/whale-surface-seam-fix.md",
+      "sha256": "2db6d4a87d90b1386a3a464350481f7c42699e88e1afbd5231d57848cb2f0a67"
+    },
+    {
+      "path": "docs/whale-wide-torso.md",
+      "sha256": "31f8ecdc5efd4adff395bbcb4f4cd7d87bcba3bd3aed6b18244c1b0681d9e47f"
+    },
+    {
+      "path": "reports/blocky-extracted-model-methods-2026-10-12.md",
+      "sha256": "d5bf2311fca0231511a94c05a2d02ba87da4838d483d26c957163f50da58125e"
+    },
+    {
+      "path": "reports/blocky-session-summary-2026-10-12.md",
+      "sha256": "5ee0e0c4958a417c7f4e2049cfc8f7ff1f05c8f84ebaea27e695560f5e957163"
+    },
+    {
+      "path": "reports/blocky-dance-generality-2026-10-14.md",
+      "sha256": "e213f02b0161381b8b39247a7d5822084d5d307d04c1a64df1b175485ec2a5dd"
+    },
+    {
+      "path": "docs/jenny-style-modeling-guide.md",
+      "sha256": "2e12661a4af9cc65aec305f4e1583ed52fa5870129efb4d04395ee87c7217f7a"
+    }
+  ]
+}

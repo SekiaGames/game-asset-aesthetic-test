@@ -1,0 +1,9 @@
+numpy
+scipy
+soundfile
+requests
+ormsgpack
+pyworld
+soxr
+# ASR: funasr + its upstream dependencies
+# VoiceDesign: qwen-tts + torch in its own environment

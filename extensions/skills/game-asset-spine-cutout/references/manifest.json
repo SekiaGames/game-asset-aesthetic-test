@@ -1,0 +1,94 @@
+{
+  "name": "game-asset-spine-cutout",
+  "date": "2026-10-18",
+  "execution_mode": "character-adaptation",
+  "code": [
+    {
+      "origin": "scripts/katana-action.py",
+      "path": "assets/workspace/scripts/katana-action.py",
+      "source_sha256": "cc08c1b92d37e61d1a228a074da72476d77ef28835431f0a3021f18a08809adc",
+      "sha256": "cc08c1b92d37e61d1a228a074da72476d77ef28835431f0a3021f18a08809adc",
+      "adaptations": []
+    },
+    {
+      "origin": "scripts/pose-extract.py",
+      "path": "assets/workspace/scripts/pose-extract.py",
+      "source_sha256": "41cfd96ca0370fb5211461c6347c2c94f89ec78599f2d68d2c392f36f1dc4e7a",
+      "sha256": "5ecf51ae88bda6ceed6d704fd85108fefad5d49e963586b226235de82ec3fa17",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/pose-to-rig.py",
+      "path": "assets/workspace/scripts/pose-to-rig.py",
+      "source_sha256": "e1593c857dfc8bfdd4da5c6587df95b270680bf58ecd738de6c501f25d2092e6",
+      "sha256": "a5d76b1e3e0d2416aba2c1408601d3b4ef60aab8729fed13945140325fd17432",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/skirt-measure.py",
+      "path": "assets/workspace/scripts/skirt-measure.py",
+      "source_sha256": "47e29a788e8075c0fcefdd5e9dcc914096dc1ed13aa2cc2d638b80b63c6b2cf7",
+      "sha256": "36dc2f984389999e48aaef962515a0e425ac75ecc528a51545267ad8ad9c3baf",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-cutout-parts.py",
+      "path": "assets/workspace/scripts/spine-cutout-parts.py",
+      "source_sha256": "674293cadfabe33147b8bc7dbfe003a0551f673a81f0a706fd43d665d536d6a9",
+      "sha256": "b0c4dc20d9a0eaa646f2428381b821b4686042e79dadc4df8d6051e18db0f13c",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-cutout-rig.py",
+      "path": "assets/workspace/scripts/spine-cutout-rig.py",
+      "source_sha256": "4fa46c09e6a1317559eda5e9100c7534ce4c1773b42fa856866bd35849d2c102",
+      "sha256": "99c6e0cab372cfbbb167a8caef1b135bb58040f698684cc957f0dd9c60356723",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-pack.py",
+      "path": "assets/workspace/scripts/spine-pack.py",
+      "source_sha256": "effc525cc6c5d3b4e72098cf6589b066d71254d7f74d491d5f76ea5c20dea719",
+      "sha256": "c230b95069e5367c76482fc206aba5586d5286d6bc10afaad6827a49b903043b",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-to-godot.py",
+      "path": "assets/workspace/scripts/spine-to-godot.py",
+      "source_sha256": "0785768316e406b845297ee45ec528ab3b90a51b1e20c83e21d88874f6d946ff",
+      "sha256": "e1485416ec63f7e765ec0cbe69a770e13cd3bc20556b19f1fe053b331eb05f31",
+      "adaptations": [
+        "示例命令/ComfyUI 默认目录改为可移植写法；算法不变。"
+      ]
+    },
+    {
+      "origin": "scripts/spine-verify.mjs",
+      "path": "assets/workspace/scripts/spine-verify.mjs",
+      "source_sha256": "8c84a5d05bbef1e17ebac9d0387c1c9cc9ae75ac9cfaff9acd12943f3b134d84",
+      "sha256": "8c84a5d05bbef1e17ebac9d0387c1c9cc9ae75ac9cfaff9acd12943f3b134d84",
+      "adaptations": []
+    }
+  ],
+  "documents": [
+    {
+      "path": "reports/cutout-rig-quicktest-2026-10-07.md",
+      "sha256": "7dc4975ce6c18ad5239f5e175fa45fb78b2cf6ccd4ee90998512fb45fb761a46"
+    },
+    {
+      "path": "reports/katana-action-2026-10-08.md",
+      "sha256": "5d3b94ac81720294e2f54f82e530305ac678d5cdd94704d0930daef1f3f4bfcc"
+    }
+  ]
+}
