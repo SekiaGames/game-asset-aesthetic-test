@@ -30,6 +30,21 @@ PORT=8765 <venv>/bin/python studio/server.py
 - **产物预览**：`art/clean`、`exploded.png`、`setup_pose.png`、`idle.gif`、`*_sheet.png`、
   atlas 与 `preview.html`，点开即看。
 
+### 缺失模型面板
+
+选一个工作流（自动列出 `user/default/workflows/*.json`），点「检查」：
+
+1. 从工作流 JSON 里抽模型文件名（正则认 `.safetensors/.ckpt/.pt/.pth/.bin/.onnx/.gguf/.sft`）；
+2. 逐个查本机 `models/` 是否已有；
+3. 找下载源，优先级：**Manager 清单** → **工作流注释里自带的 URL**
+   （新版模板会把 `huggingface.co/Comfy-Org/...` 的链接写进 note，Qwen-Image 2.1 模板就是这样）；
+4. 点「补齐可下载的」→ 后台串行下载，页面显示每个文件的实时进度行。
+
+**为什么不用 Manager 的队列**：实测 `/v2/manager/queue/install_model` 能入队、也能把 URL 改写成
+hf-mirror，但它用的 `torchvision.download_url` 在 `Comfy-Org/Qwen-Image-2.1` 这个仓库上会挂住
+——队列显示 in_progress，六分钟一个字节都没落地。改成 spawn `tools/fetch-model.py`
+（`huggingface_hub` + `HF_ENDPOINT` + `HF_HUB_DISABLE_XET`）后同样的 URL 能稳定跑到 0.5–3 MB/s。
+
 不做：
 
 - **不重做 ComfyUI 的图编辑界面**。文生图 / 分件仍然在 ComfyUI 里搭工作流，这里只负责编排和看结果。

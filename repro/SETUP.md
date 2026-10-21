@@ -230,3 +230,12 @@ curl -X POST http://127.0.0.1:8188/v2/manager/queue/install_model \
 curl -X POST http://127.0.0.1:8188/v2/manager/queue/start
 curl http://127.0.0.1:8188/v2/manager/queue/status
 ```
+
+### 补充：Manager 的下载器会挂住
+
+`/v2/manager/queue/install_model` 能入队、也能正确改写 URL，但它最终调的是
+`torchvision.datasets.utils.download_url`。在 `Comfy-Org/Qwen-Image-2.1` 上实测：队列显示
+`in_progress`，**六分钟没有落任何字节**。同样的 URL 用 `tools/fetch-model.py`
+（huggingface_hub + DISABLE_XET）能稳定跑，速度 0.5–3 MB/s。
+
+所以「补齐缺失模型」走的是工作台自己的下载器，不是 Manager 队列。

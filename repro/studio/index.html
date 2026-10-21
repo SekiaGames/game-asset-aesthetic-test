@@ -51,6 +51,19 @@
   .toolbar button{background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 12px;
     font-size:12px;cursor:pointer}
   .toolbar button:hover{border-color:#c9c6bb}
+  .fixbox{display:flex;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .fixbox select{flex:1;min-width:0;font-size:12px;padding:6px 8px;border:1px solid var(--line);
+    border-radius:8px;background:#fff;color:var(--ink)}
+  .fixbox button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:7px 12px;
+    font-size:12px;cursor:pointer;flex:none}
+  .misslist{max-height:210px;overflow:auto}
+  .mrow{display:flex;gap:8px;align-items:center;padding:7px 14px;border-bottom:1px solid var(--line);
+    font-size:12px}
+  .mrow:last-child{border-bottom:0}
+  .mrow .fn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mrow .st{flex:none;font-size:11px}
+  .mrow .st.ok{color:var(--ok)} .mrow .st.no{color:var(--warn)}
+  .qhint{margin-left:auto;font-size:11px;color:var(--dim);align-self:center}
   #log{height:290px;overflow:auto;margin:0;padding:12px 14px;font:12px/1.55 ui-monospace,Menlo,monospace;
     white-space:pre-wrap;word-break:break-all;background:#23262e;color:#d7dae0}
   #log .cmd{color:#8fd3b6} #log .err{color:#ff9c8a}
@@ -87,6 +100,19 @@
         <button id="runAll">跑一遍本地步骤</button>
         <button id="openPreview">spine 预览</button>
         <button id="refresh">刷新</button>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>缺失模型<span class="hint" id="wfhint">选工作流</span></h2>
+      <div class="fixbox">
+        <select id="wf"></select>
+        <button id="scan">检查</button>
+      </div>
+      <div id="miss" class="misslist"><div class="empty">选一个工作流，点检查。</div></div>
+      <div id="jobs" class="misslist"></div>
+      <div class="toolbar">
+        <button id="fix">补齐可下载的</button>
+        <span id="qstatus" class="qhint"></span>
       </div>
     </section>
   </div>
@@ -216,8 +242,66 @@ $('#runAll').onclick = async () => {
   loadState();
 };
 
+let missing = [];
+async function loadWorkflows() {
+  try {
+    const d = await (await fetch('/api/workflows')).json();
+    $('#wf').innerHTML = d.items.map(i => `<option value="${i.path}">${i.name}</option>`).join('');
+    $('#wfhint').textContent = d.items.length ? d.items.length + ' 个工作流' : '没找到工作流';
+    if (d.items.length) $('#scan').click();          // 打开就自动检查最近的工作流
+  } catch (e) { $('#wfhint').textContent = '读取失败'; }
+}
+function renderMiss() {
+  if (!missing.length) { $('#miss').innerHTML = '<div class="empty">这个工作流没有引用模型文件。</div>'; return; }
+  $('#miss').innerHTML = missing.map(m => {
+    const st = m.present ? '<span class="st ok">已在本机</span>'
+      : (m.url ? '<span class="st no">缺失·可下载</span>' : '<span class="st no">缺失·无下载源</span>');
+    return `<div class="mrow"><span class="fn" title="${m.filename}">${m.filename}</span>${st}</div>`;
+  }).join('');
+}
+async function pollJobs() {
+  try {
+    const d = await (await fetch('/api/jobs')).json();
+    const js = d.items || [];
+    if (!js.length) { $('#jobs').innerHTML = ''; $('#qstatus').textContent = ''; return; }
+    const run = js.filter(j => j.state === 'running').length;
+    const done = js.filter(j => j.state === 'done').length;
+    const bad = js.filter(j => j.state === 'error').length;
+    $('#qstatus').textContent = `${done}/${js.length} 完成` + (run ? ` · 下载中 ${run}` : '') + (bad ? ` · 失败 ${bad}` : '');
+    $('#jobs').innerHTML = js.slice(-6).map(j => {
+      const tag = j.state === 'done' ? '<span class="st ok">完成</span>'
+        : j.state === 'error' ? '<span class="st no">失败</span>'
+        : j.state === 'running' ? '<span class="st no">下载中</span>' : '<span class="st">排队</span>';
+      return `<div class="mrow"><span class="fn" title="${j.last || ''}">${j.filename}</span>
+        <span class="st src">${(j.last || '').replace(/[<>]/g, '').slice(-46)}</span>${tag}</div>`;
+    }).join('');
+  } catch (e) { /* ignore */ }
+}
+$('#scan').onclick = async () => {
+  const wf = $('#wf').value;
+  if (!wf) return;
+  const r = await fetch('/api/scan', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ workflow: wf }) });
+  const d = await r.json();
+  if (d.error) { $('#miss').innerHTML = `<div class="empty">${d.error}</div>`; return; }
+  missing = d.items;
+  renderMiss();
+};
+$('#fix').onclick = async () => {
+  const items = missing.filter(m => !m.present && m.url);
+  if (!items.length) { log('没有可下载的条目（都已存在或没有下载源）。', 'err'); return; }
+  const r = await fetch('/api/fix', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items }) });
+  const d = await r.json();
+  if (d.error) { log('入队失败：' + d.error, 'err'); return; }
+  log(`已入队 ${d.queued} 个模型` + (d.errors && d.errors.length ? `，失败：${d.errors.join('; ')}` : ''), 'cmd');
+  pollJobs();
+};
+
 loadState();
 setInterval(() => { if (!running) loadState(); }, 6000);
+setInterval(pollJobs, 2000);
+loadWorkflows();
 </script>
 </body>
 </html>

@@ -14,6 +14,7 @@ import glob
 import json
 import mimetypes
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -148,6 +149,197 @@ def safe_path(rel):
     return p if os.path.isfile(p) else None
 
 
+
+MODEL_RE = re.compile(r"([A-Za-z0-9][A-Za-z0-9._+\-]*\.(?:safetensors|ckpt|pt|pth|bin|onnx|gguf|sft))", re.I)
+_list_cache = {"t": 0, "map": {}}
+
+
+def comfy_dir():
+    for d in COMFY_DIR_GUESSES:
+        if d and os.path.isdir(os.path.join(d, "models")):
+            return d
+    return None
+
+
+def workflows():
+    d = comfy_dir()
+    if not d:
+        return []
+    wd = os.path.join(d, "user", "default", "workflows")
+    out = []
+    for p in glob.glob(os.path.join(wd, "**", "*.json"), recursive=True):
+        out.append({"path": p, "name": os.path.basename(p), "mtime": int(os.path.getmtime(p))})
+    out.sort(key=lambda x: -x["mtime"])
+    return out
+
+
+def have_models():
+    d = comfy_dir()
+    idx = set()
+    if not d:
+        return idx
+    for _, _, fs in os.walk(os.path.join(d, "models")):
+        for f in fs:
+            idx.add(f.lower())
+    return idx
+
+
+def model_list_map(ttl=120):
+    """filename(小写) -> Manager 清单条目（缓存已改写成 hf-mirror）"""
+    if time.time() - _list_cache["t"] < ttl and _list_cache["map"]:
+        return _list_cache["map"]
+    d = comfy_dir()
+    m = {}
+    if d:
+        for p in sorted(glob.glob(os.path.join(d, "user", "__manager", "cache", "*_model-list.json"))):
+            try:
+                data = json.load(open(p, encoding="utf-8"))
+            except Exception:                                   # noqa: BLE001
+                continue
+            for e in data.get("models") or []:
+                fn = (e.get("filename") or "").lower()
+                if fn and fn not in m:
+                    m[fn] = e
+    _list_cache.update(t=time.time(), map=m)
+    return m
+
+
+URL_RE = re.compile(r"https?://[^\s\"'()\\]+\.(?:safetensors|ckpt|pt|pth|bin|onnx|gguf|sft)", re.I)
+
+
+def scan_workflow(path):
+    """从工作流里抽模型文件名，并尽量找到下载源。
+
+    优先级：Manager 清单 → 工作流注释里自带的 URL（新版模板会把 Comfy-Org 的
+    resolve/main/... 链接写进 note，实测 Qwen-Image 2.1 模板就是如此）。
+    """
+    raw = open(path, encoding="utf-8").read()
+    names = sorted({mm.group(1) for mm in MODEL_RE.finditer(raw)})
+    have = have_models()
+    lst = model_list_map()
+
+    wf_urls = {}
+    for m in URL_RE.finditer(raw):
+        u = m.group(0)
+        fn = u.rsplit("/", 1)[-1].lower()
+        wf_urls.setdefault(fn, u)
+
+    out = []
+    for n in names:
+        low = n.lower()
+        e = lst.get(low)
+        if e:
+            out.append({"filename": n, "present": low in have, "url": e.get("url"),
+                        "type": e.get("type"), "save_path": e.get("save_path"),
+                        "size": e.get("size"), "name": e.get("name"), "src": "manager"})
+            continue
+        u = wf_urls.get(low)
+        save_path = "default"
+        if u:
+            parts = u.split("/resolve/")[-1].split("/")     # main/diffusion_models/xxx.safetensors
+            if len(parts) > 2:
+                save_path = parts[1]
+        out.append({"filename": n, "present": low in have, "url": u,
+                    "type": save_path, "save_path": save_path,
+                    "size": None, "name": None, "src": "workflow" if u else None})
+    return out
+
+
+def split_url(u):
+    """https://hf-mirror.com/Org/Repo/resolve/main/vae/x.safetensors -> (Org/Repo, vae/x.safetensors)"""
+    if "/resolve/" not in u:
+        return None, None
+    base, rest = u.split("/resolve/", 1)
+    parts = base.split("/")
+    if len(parts) < 5:
+        return None, None
+    repo = "/".join(parts[-2:])
+    tail = rest.split("/", 1)
+    return (repo, tail[1]) if len(tail) == 2 else (None, None)
+
+
+JOBS = []
+_job_lock = __import__("threading").Lock()
+
+
+def comfy_python(comfy):
+    """下载子进程用的是 ComfyUI 自己的 python（里面有 huggingface_hub）。"""
+    for c in (os.path.join(comfy, ".venv", "bin", "python"),
+              os.path.join(os.path.dirname(comfy), "standalone-env", "bin", "python")):
+        if os.access(c, os.X_OK):
+            return c
+    return sys.executable
+
+
+def _run_job(job, comfy):
+    job["state"] = "running"
+    tools = os.path.join(ROOT, "tools", "fetch-model.py")
+    argv = [comfy_python(comfy), "-u", tools, job["repo"], job["path"], os.path.join(comfy, "models")]
+    try:
+        p = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                             text=True, bufsize=0)
+        buf = ""
+        while True:
+            ch = p.stdout.read(1)
+            if not ch:
+                break
+            if ch in "\r\n":
+                line = buf.strip()
+                buf = ""
+                if line:
+                    job["last"] = line[-120:]
+            else:
+                buf += ch
+        if p.wait() == 0:
+            job["state"] = "done"
+        else:
+            job["state"] = "error"
+            job["last"] = (job.get("last") or "") + f" (exit {p.returncode})"
+    except Exception as e:                                  # noqa: BLE001
+        job["state"] = "error"
+        job["last"] = str(e)[:120]
+
+
+def start_jobs(items):
+    comfy = comfy_dir()
+    if not comfy:
+        return 0, ["找不到 ComfyUI 目录"]
+    added, errs = 0, []
+    for it in items:
+        u = (it.get("url") or "").replace("https://huggingface.co", "https://hf-mirror.com")
+        repo, path = split_url(u)
+        if not repo:
+            errs.append(f"{it.get('filename')}: URL 无法解析")
+            continue
+        with _job_lock:
+            if any(j["path"] == path and j["state"] in ("queued", "running") for j in JOBS):
+                continue
+            JOBS.append({"filename": it.get("filename") or path.rsplit("/", 1)[-1],
+                         "repo": repo, "path": path, "state": "queued", "last": ""})
+            added += 1
+    if added:
+        t = __import__("threading").Thread(target=_worker, args=(comfy,), daemon=True)
+        t.start()
+    return added, errs
+
+
+def _worker(comfy):
+    while True:
+        with _job_lock:
+            nxt = next((j for j in JOBS if j["state"] == "queued"), None)
+        if not nxt:
+            return
+        _run_job(nxt, comfy)
+
+
+def manager_post(path, payload=None):
+    data = json.dumps(payload).encode() if payload is not None else b""
+    req = urllib.request.Request(COMFY + path, data=data, method="POST",
+                                 headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=15) as r:
+        return r.status
+
+
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
 
@@ -190,8 +382,43 @@ class Handler(BaseHTTPRequestHandler):
                 ctype = "text/html; charset=utf-8"
             with open(p, "rb") as f:
                 return self._send(200, f.read(), ctype)
+        if u.path == "/api/workflows":
+            return self._send(200, json.dumps({"items": workflows()}, ensure_ascii=False))
+        if u.path == "/api/jobs":
+            return self._send(200, json.dumps({"items": JOBS[-40:]}, ensure_ascii=False))
+        if u.path == "/api/queue":
+            try:
+                with urllib.request.urlopen(COMFY + "/v2/manager/queue/status", timeout=5) as r:
+                    return self._send(200, r.read(), "application/json; charset=utf-8")
+            except Exception as e:                          # noqa: BLE001
+                return self._send(502, {"error": str(e)[:120]})
         if u.path == "/api/run":
             return self.stream(q.get("step", [""])[0])
+        self._send(404, "not found", "text/plain")
+
+    def do_POST(self):
+        u = urlparse(self.path)
+        n = int(self.headers.get("Content-Length") or 0)
+        body = {}
+        if n:
+            try:
+                body = json.loads(self.rfile.read(n) or b"{}")
+            except Exception:                               # noqa: BLE001
+                return self._send(400, {"error": "bad json"})
+
+        if u.path == "/api/scan":
+            wf = body.get("workflow") or ""
+            if not os.path.isfile(wf):
+                return self._send(400, {"error": "工作流文件不存在"})
+            return self._send(200, json.dumps({"items": scan_workflow(wf)}, ensure_ascii=False))
+
+        if u.path == "/api/fix":
+            items = [i for i in (body.get("items") or []) if i.get("url")]
+            if not items:
+                return self._send(400, {"error": "没有可下载的条目（没匹配到下载源）"})
+            added, errs = start_jobs(items)
+            return self._send(200, json.dumps({"queued": added, "errors": errs}, ensure_ascii=False))
+
         self._send(404, "not found", "text/plain")
 
     def stream(self, sid):
