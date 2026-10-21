@@ -133,7 +133,7 @@ P3 multiview ────────► G3 三套同身高同脚底 + 绕场切
 
 实测结果见 [p0/P0-report.md](p0/P0-report.md)：12 bones / 10 slots / 6 regions，5 个动作全部 0 缺失，退出码 0；并用本机 Chrome 无头打开 `preview.html`，官方 spine-player 4.2 渲染正常。
 
-### G1 — cutout（1–2 天）
+### G1 — cutout（1–2 天）　◐ 主链路通过，肩颈缝未修（见 p1/P1-report.md）
 
 - `setup_pose.png`：关节处无裂缝、无露底、描边连续、手脚层级正确（远侧压暗）。
 - `idle/walk/run/wave/jump` 的 `.gif`：极限转角不裂、脚底不穿地、循环首末衔接。
