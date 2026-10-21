@@ -199,3 +199,34 @@ curl -s http://127.0.0.1:8188/object_info \
 - `HF_HUB_ENABLE_HF_TRANSFER=1` 先别开，hf_transfer 在镜像上更容易失败。
 - 中断后重跑同一条命令会续传；若卡在 `.incomplete`，删掉 `local_dir/.cache` 里对应文件再下。
 - 单文件 checkpoint（6.9 GB）比 diffusers 目录结构省事，ComfyUI 直接认。
+
+---
+
+## 9. 日志在哪（下载失败时按这个顺序查）
+
+| 位置 | 内容 |
+|---|---|
+| `~/Library/Logs/Comfy Desktop/app.log` | 桌面 App 主进程 + 后端 stdout 的合流，出错先看这里 |
+| `<install>/logs/comfyui.log` | 后端当前日志（轮转，带 `[INFO]/[ERROR]` 前缀） |
+| `<install>/ComfyUI/user/comfyui.log` | 后端日志的另一份（`comfyui.prev*.log` 是历史） |
+| DevTools Console | **前端**报错只在这里：菜单 View → Toggle Developer Tools |
+
+判断故障层：
+
+- 日志里出现 `model_url replaced by HF_ENDPOINT` → 说明 Manager 走了镜像，失败是**某个具体模型**
+  的 URL 有问题（403 gated、非 HF 源、404）。
+- 出现 `[ComfyUI-Manager] Failed to download: <url> / <错误>` → 那条 url 就是元凶，单独换源。
+- **日志里什么都没有，只有界面弹「下载失败」** → 那次点击根本没进后端，是桌面前端自己的下载器；
+  只能去 DevTools Console 看。绕开方式见下。
+
+Manager 的队列是显式启动的，手动验证一条链路：
+
+```sh
+curl -X POST http://127.0.0.1:8188/v2/manager/queue/install_model \
+  -H 'Content-Type: application/json' \
+  -d '{"client_id":"diag","ui_id":"diag-1","name":"probe","type":"upscale",
+       "url":"https://huggingface.co/<repo>/resolve/main/<file>",
+       "filename":"probe.bin","save_path":"upscale_models"}'
+curl -X POST http://127.0.0.1:8188/v2/manager/queue/start
+curl http://127.0.0.1:8188/v2/manager/queue/status
+```
