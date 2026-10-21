@@ -5,3 +5,6 @@
 **/output/
 *.zip
 .DS_Store
+/repro/p0/out
+repro/p0/art/sheet.png
+/repro/p0/ws
