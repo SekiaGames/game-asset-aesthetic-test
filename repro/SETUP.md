@@ -152,3 +152,50 @@ python scripts/pose-extract.py "某张正面图.png" /tmp/poses --on-white   # �
 - [ ] `/object_info` 里能看到 `SeeThrough_*`
 - [ ] `COMFYUI_DIR` 设好，`pose-extract.py` 能出 `poses.json`
 - [ ] （P3 再装）Blender + VRM 插件
+
+---
+
+## 8. 模型下载（国内网络，实测）
+
+桌面版 ComfyUI 的「中国镜像」开关**只影响它自己的元数据请求**，实测那个 venv 里
+`huggingface_hub.constants.ENDPOINT` 仍是 `https://huggingface.co`。所以下载失败有两层原因：
+
+1. **`HF_ENDPOINT` 没进到那个进程**：GUI 启动的 App 不读 `.zshrc`。
+2. **Xet**：hf-mirror 只代理元数据，大文件被 302 到 `cas-bridge.xethub.hf.co`，那条链路在国内经常断。
+
+另外这台机器的 `hf` 命令是坏的——shebang 指向构建机的
+`/Users/runner/work/ComfyUI-Standalone-Environments/.../python3`，直接执行会报 `bad interpreter`。
+所以别用 `hf download`，改用 venv 的 python 调 API：
+
+```sh
+C=/Volumes/Data/Users/sekia/ComfyUI-Installs/ComfyUI
+export HF_ENDPOINT=https://hf-mirror.com
+export HF_HUB_DISABLE_XET=1
+
+$C/standalone-env/bin/python - <<'PY'
+from huggingface_hub import hf_hub_download
+p = hf_hub_download(
+    "cagliostrolab/animagine-xl-3.1",
+    "animagine-xl-3.1.safetensors",
+    local_dir="/Volumes/Data/Users/sekia/ComfyUI-Installs/ComfyUI/ComfyUI/models/checkpoints",
+)
+print(p)
+PY
+```
+
+验证：
+
+```sh
+curl -s http://127.0.0.1:8188/object_info \
+  | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['CheckpointLoaderSimple']['input']['required']['ckpt_name'][0])"
+```
+
+要全局生效（给桌面 App 用）：`launchctl setenv HF_ENDPOINT https://hf-mirror.com` +
+`launchctl setenv HF_HUB_DISABLE_XET 1`，然后**完全退出并重启 App**。
+注意 `launchctl setenv` 重启电脑后失效，要长期生效得写 LaunchAgent plist。
+
+已知细节：
+
+- `HF_HUB_ENABLE_HF_TRANSFER=1` 先别开，hf_transfer 在镜像上更容易失败。
+- 中断后重跑同一条命令会续传；若卡在 `.incomplete`，删掉 `local_dir/.cache` 里对应文件再下。
+- 单文件 checkpoint（6.9 GB）比 diffusers 目录结构省事，ComfyUI 直接认。
