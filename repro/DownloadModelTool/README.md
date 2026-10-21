@@ -23,7 +23,7 @@
 ./run.command get https://hf-mirror.com/Comfy-Org/Qwen-Image-2.1/resolve/main/vae/qwen_image_2.1_vae_bf16.safetensors
 
 # repo 根目录的权重默认落 models/checkpoints/
-./run.command get cagliostrolab/animagine-xl-3.1 animagine-xl-3.1.safetensors
+./run.command get Comfy-Org/Qwen-Image-2.1 vae/qwen_image_2.1_vae_bf16.safetensors
 ```
 
 ## 放哪里（重要）

@@ -175,12 +175,20 @@ export HF_HUB_DISABLE_XET=1
 $C/standalone-env/bin/python - <<'PY'
 from huggingface_hub import hf_hub_download
 p = hf_hub_download(
-    "cagliostrolab/animagine-xl-3.1",
-    "animagine-xl-3.1.safetensors",
-    local_dir="/Volumes/Data/Users/sekia/ComfyUI-Installs/ComfyUI/ComfyUI/models/checkpoints",
+    "Comfy-Org/Qwen-Image-2.1",
+    "vae/qwen_image_2.1_vae_bf16.safetensors",
+    local_dir="/Volumes/Data/Users/sekia/ComfyUI-Installs/ComfyUI/ComfyUI/models/vae",
 )
 print(p)
 PY
+```
+
+更省事的做法是用 [`DownloadModelTool`](DownloadModelTool/README.md)，它把上面这些环境变量、
+落地路径、续传都包好了：
+
+```sh
+cd repro/DownloadModelTool
+./run.command get "https://hf-mirror.com/Comfy-Org/Qwen-Image-2.1/resolve/main/vae/qwen_image_2.1_vae_bf16.safetensors"
 ```
 
 验证：
