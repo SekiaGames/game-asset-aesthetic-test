@@ -4,3 +4,4 @@
 **/models/
 **/output/
 *.zip
+.DS_Store
