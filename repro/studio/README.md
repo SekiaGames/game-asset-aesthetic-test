@@ -40,10 +40,13 @@ PORT=8765 <venv>/bin/python studio/server.py
    （新版模板会把 `huggingface.co/Comfy-Org/...` 的链接写进 note，Qwen-Image 2.1 模板就是这样）；
 4. 点「补齐可下载的」→ 后台串行下载，页面显示每个文件的实时进度行。
 
-**为什么不用 Manager 的队列**：实测 `/v2/manager/queue/install_model` 能入队、也能把 URL 改写成
-hf-mirror，但它用的 `torchvision.download_url` 在 `Comfy-Org/Qwen-Image-2.1` 这个仓库上会挂住
-——队列显示 in_progress，六分钟一个字节都没落地。改成 spawn `tools/fetch-model.py`
-（`huggingface_hub` + `HF_ENDPOINT` + `HF_HUB_DISABLE_XET`）后同样的 URL 能稳定跑到 0.5–3 MB/s。
+**下载本身不在这个页面里**：工作台只负责「扫工作流出缺失清单」，真正的下载交给独立工具
+[`../DownloadModelTool`](../DownloadModelTool/README.md)（`dl.py get <url>`），
+页面读子进程输出显示进度。所以下载器可以单独用、单独调，跟工作流无关。
+
+之所以不用 ComfyUI-Manager 的队列：实测 `/v2/manager/queue/install_model` 能入队、也能把 URL 改写成
+hf-mirror，但它落在 `torchvision.download_url`，在 `Comfy-Org/Qwen-Image-2.1` 上会挂住
+（队列 in_progress、六分钟零字节）。
 
 不做：
 

@@ -272,9 +272,10 @@ def comfy_python(comfy):
 
 
 def _run_job(job, comfy):
+    """下载交给独立工具 DownloadModelTool，工作台不再自己实现下载。"""
     job["state"] = "running"
-    tools = os.path.join(ROOT, "tools", "fetch-model.py")
-    argv = [comfy_python(comfy), "-u", tools, job["repo"], job["path"], os.path.join(comfy, "models")]
+    dl = os.path.join(ROOT, "DownloadModelTool", "dl.py")
+    argv = [comfy_python(comfy), "-u", dl, "get", job["url"]]
     try:
         p = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                              text=True, bufsize=0)
@@ -315,7 +316,8 @@ def start_jobs(items):
             if any(j["path"] == path and j["state"] in ("queued", "running") for j in JOBS):
                 continue
             JOBS.append({"filename": it.get("filename") or path.rsplit("/", 1)[-1],
-                         "repo": repo, "path": path, "state": "queued", "last": ""})
+                         "repo": repo, "path": path, "url": u,
+                         "state": "queued", "last": ""})
             added += 1
     if added:
         t = __import__("threading").Thread(target=_worker, args=(comfy,), daemon=True)
