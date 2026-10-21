@@ -1,0 +1,14 @@
+# 生成图与中间产物不进库，只留可复现的脚本和几张验收图
+art/clean/
+out/*
+!out/rig/
+out/rig/*
+!out/rig/setup_pose.png
+!out/rig/preview-shot.png
+!out/rig/*_sheet.png
+!out/parts/
+!out/parts/part_0*.png
+!out/exploded.png
+# pack / verify 是 skill 脚本的原样拷贝，只用改动过的 rig 脚本 + patch
+ws-rig/spine-pack.py
+ws-rig/spine-verify.mjs

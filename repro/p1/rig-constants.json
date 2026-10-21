@@ -1,0 +1,45 @@
+{
+ "KNEE_Y": 186,
+ "THIGH_LEN": 178,
+ "P_leg_upper": [
+  70,
+  8
+ ],
+ "P_leg_lower": [
+  70,
+  12
+ ],
+ "GROUND_expected": 622,
+ "parts": {
+  "head": {
+   "scale": 0.1813,
+   "pivot": [
+    83,
+    128
+   ]
+  },
+  "body": {
+   "scale": 0.389,
+   "pivot": [
+    78,
+    150
+   ],
+   "belt_row": 290
+  },
+  "arm": {
+   "scale": 0.2361,
+   "pivot_top": [
+    35,
+    20
+   ]
+  },
+  "leg": {
+   "scale": 0.3325,
+   "axis_part_x": 120.0,
+   "pivot_top": [
+    70,
+    8
+   ]
+  }
+ }
+}

@@ -1,0 +1,33 @@
+--- ../../extensions/skills/game-asset-spine-cutout/assets/workspace/scripts/spine-cutout-rig.py	2026-10-21 13:11:05
++++ ws-rig/spine-cutout-rig.py	2026-10-21 22:08:47
+@@ -60,7 +60,7 @@
+ 
+ # ---- cut parts ---------------------------------------------------------------
+ head, body, arm, leg = load(0), load(1), load(2), load(4)
+-ELBOW_Y, KNEE_Y, THIGH_LEN = 150, 50, 180
++ELBOW_Y, KNEE_Y, THIGH_LEN = 150, 186, 178   # p1 角色：膝在腿图 y=186，大腿 178
+ BELT = 124  # belt rows 121-125 in the body image (dark red)
+ parts = {
+     "head": head,
+@@ -228,8 +228,8 @@
+     im.save(os.path.join(IMG, k + ".png"))
+ 
+ # ---- layout: pivots (pixel space, body top-left = origin) --------------------
+-NECK = (56, 10)
+-SH_NEAR, SH_FAR = (68, 48), (58, 46)
++NECK = (56, 40)   # p1：领口在 body 图 y≈37，头骨放这里才没有断颈
++SH_NEAR, SH_FAR = (62, 44), (52, 42)
+ HIP_JOINT_NEAR, HIP_JOINT_FAR = (82, 222), (66, 220)
+ WAIST = (78, 150)
+ # pivot positions inside each image (image pixels)
+@@ -237,8 +237,8 @@
+     "head": (83, 128),
+     "arm-upper": (35, 25), "arm-upper.elbow": (36, ELBOW_Y),
+     "arm-lower": (36, 10),
+-    "leg-upper": (30, 8), "leg-upper.knee": (30, THIGH_LEN + 8),
+-    "leg-lower": (30, 12),
++    "leg-upper": (70, 8), "leg-upper.knee": (70, THIGH_LEN + 8),
++    "leg-lower": (70, 12),
+     "body": WAIST,  # body image top-left is the layout origin
+     "bodice": WAIST,
+ }
