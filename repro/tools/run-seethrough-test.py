@@ -1,10 +1,19 @@
 """提交 See-through 的 API 格式 prompt 并轮询到结束。纯标准库。"""
+import argparse
 import json
 import time
 import urllib.request
 
-BASE = "http://127.0.0.1:8188"
-IMG = "Anime_game_character_reference_2026-10-21T13-55-27.png"
+ap = argparse.ArgumentParser()
+ap.add_argument("--res", type=int, default=1280)
+ap.add_argument("--steps", type=int, default=30)
+ap.add_argument("--img", default="Anime_game_character_reference_2026-10-21T13-55-27.png")
+ap.add_argument("--timeout", type=int, default=1800)
+ap.add_argument("--base", default="http://127.0.0.1:8188")
+a = ap.parse_args()
+
+BASE = a.base
+IMG = a.img
 
 g = {
     "1": {"class_type": "LoadImage", "inputs": {"image": IMG}},
@@ -17,7 +26,7 @@ g = {
         "cache_tag_embeds": True, "group_offload": False, "auto_download": False}},
     "5": {"class_type": "SeeThrough_GenerateLayers", "inputs": {
         "image": ["2", 0], "layerdiff_model": ["3", 0], "seed": 42,
-        "resolution": 1280, "num_inference_steps": 30}},
+        "resolution": a.res, "num_inference_steps": a.steps}},
     "6": {"class_type": "SeeThrough_GenerateDepth", "inputs": {
         "layers": ["5", 0], "depth_model": ["4", 0], "seed": 42, "resolution_depth": -1}},
     "7": {"class_type": "SeeThrough_PostProcess", "inputs": {
@@ -51,7 +60,7 @@ while True:
     if el // 30 != last:
         last = el // 30
         print(f"  ...{el}s", flush=True)
-    if el > 1800:
-        print("超时 30 分钟", flush=True)
+    if el > a.timeout:
+        print(f"超时 {a.timeout//60} 分钟", flush=True)
         break
     time.sleep(3)
