@@ -169,6 +169,44 @@ def cmd_get(a):
     return 0
 
 
+def cmd_snapshot(a):
+    """整仓下载（diffusers 目录结构）。默认落到 models/SeeThrough/<repo 名>，
+    这正好是 SeeThrough 节点按 basename 找本地目录的位置。"""
+    comfy = config.comfy_dir(a.comfy)
+    if not comfy:
+        print("找不到 ComfyUI 目录")
+        return 2
+    ep = config.endpoint(a.endpoint)
+    repo = a.repo
+    base = repo.split("/")[-1]
+    to = a.to or os.path.join("SeeThrough", base)
+    dest = os.path.join(config.models_dir(comfy), to)
+
+    files = fetch.repo_files(ep, repo, a.revision)
+    total = sum(s for _, s in files)
+    print(f"{repo}  @{a.revision}")
+    print(f"-> {dest}")
+    print(f"{len(files)} 个文件，合计 {total / 1073741824:.2f} GB\n")
+
+    if a.list:
+        for path, size in sorted(files):
+            print(f"{size / 1048576:9.1f} MB  {fetch.resolve_url(ep, repo, path, a.revision)}")
+        print(f"\n{len(files)} 个 URL（每个都能单独 curl -L 下）")
+        return 0
+
+    free = config.free_gb(config.models_dir(comfy))
+    if free < total / 1073741824 + 2:
+        print(f"磁盘余量 {free:.0f} GB，不够（需要 {total / 1073741824:.1f} GB + 余量），先清理")
+        return 3
+    if not a.yes:
+        if input("继续？[y/N] ").strip().lower() not in ("y", "yes"):
+            print("已取消")
+            return 1
+    p = fetch.snapshot(ep, repo, dest, a.revision)
+    print("完成", p)
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="dl", description="独立的模型下载工具（不依赖工作流）")
     ap.add_argument("--comfy", help="ComfyUI 目录（含 models/）")
@@ -200,6 +238,14 @@ def main(argv=None):
     p.add_argument("path", nargs="?", help="repo 内路径（target 是 repo id 时必填）")
     p.add_argument("--to", help="存到 models/<子目录>（默认保持 repo 内路径）")
     p.set_defaults(func=cmd_get)
+
+    p = sub.add_parser("snapshot", help="整仓下载（diffusers 目录结构）")
+    p.add_argument("repo", help="HF repo id，如 layerdifforg/seethroughv0.0.2_layerdiff3d")
+    p.add_argument("--to", help="存到 models/<子目录>（默认 SeeThrough/<repo 名>）")
+    p.add_argument("--revision", default="main")
+    p.add_argument("--list", action="store_true", help="只打印镜像直链，不下载")
+    p.add_argument("--yes", action="store_true")
+    p.set_defaults(func=cmd_snapshot)
 
     a = ap.parse_args(argv)
     if not a.comfy:

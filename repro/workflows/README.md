@@ -68,14 +68,22 @@ python3 tools/make-seethrough-ui.py --install
 | 安装前环境快照 | `repro/comfy/venv-freeze-before-seethrough.txt`（要回滚就按它卸） |
 | **模型** | **未下载**（`models/SeeThrough/` 空） |
 
-模型是 diffusers 目录结构，**不能按单文件下**（`DownloadModelTool get` 只处理单文件）：
+模型是 diffusers 目录结构，**不能按单文件下**（`DownloadModelTool get` 只处理单文件，
+拿不到 `model_index.json` 等流水线定义）：
 
-| repo | 体积 |
-|---|---|
-| `layerdifforg/seethroughv0.0.2_layerdiff3d` | 9.46 GB |
-| `layerdifforg/seethroughv0.0.1_marigold` | 3.05 GB |
+| repo | 体积 | 落地 |
+|---|---|---|
+| `layerdifforg/seethroughv0.0.2_layerdiff3d` | 9.46 GB（24 文件） | `models/SeeThrough/seethroughv0.0.2_layerdiff3d/` |
+| `layerdifforg/seethroughv0.0.1_marigold` | 3.05 GB（16 文件） | `models/SeeThrough/seethroughv0.0.1_marigold/` |
 
-需要 `snapshot_download`（或节点里把 `auto_download` 打开让它自己下）。合计约 12.5 GB。
+```sh
+cd repro/DownloadModelTool
+./run.command snapshot layerdifforg/seethroughv0.0.2_layerdiff3d --list   # 只打印镜像直链
+./run.command snapshot layerdifforg/seethroughv0.0.2_layerdiff3d          # 实际下载
+```
+
+完整直链清单在 [`seethrough-model-urls.txt`](seethrough-model-urls.txt)（39 个文件）。
+每个 URL 形如 `https://hf-mirror.com/<repo>/resolve/main/<path>`，支持 Range（实测 206，约 2.1 MB/s）。
 
 ## 验证到哪一步（诚实版）
 

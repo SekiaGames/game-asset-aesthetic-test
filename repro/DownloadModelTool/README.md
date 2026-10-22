@@ -14,7 +14,13 @@
 ./run.command missing <workflow.json>   # 只看缺什么、从哪下
 ./run.command fill <workflow.json>      # 下载全部缺失项
 ./run.command list --filter qwen        # 搜 Manager 清单
+./run.command snapshot <repo> --list    # 整仓：只打印镜像直链，不下载
+./run.command snapshot <repo>           # 整仓：下到 models/SeeThrough/<repo 名>/
 ```
+
+`snapshot` 是给 **diffusers 目录结构**的模型用的（`model_index.json` + 各子目录）：`get` 那种
+单文件方式拿不到流水线定义，权重下下来也加载不了。默认落点 `models/SeeThrough/<repo 名>/`，
+正好是 SeeThrough 节点按 basename 找本地目录的位置。
 
 例：
 

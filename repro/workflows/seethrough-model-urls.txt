@@ -1,0 +1,56 @@
+# ComfyUI-See-through 0.5.0 模型（镜像直链）
+# 生成于 2026-10-22 08:48，来源 https://hf-mirror.com/<repo>/resolve/main/<path>
+# 落地位置：models/SeeThrough/<repo 名>/（节点按 basename 找本地目录）
+
+layerdifforg/seethroughv0.0.2_layerdiff3d  @main
+-> /Volumes/Data/Users/sekia/ComfyUI-Installs/ComfyUI/ComfyUI/models/SeeThrough/seethroughv0.0.2_layerdiff3d
+23 个文件，合计 9.46 GB
+
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/LICENSE
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/NOTICE
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/README.md
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/model_index.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/scheduler/scheduler_config.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/text_encoder/config.json
+    234.7 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/text_encoder/model.safetensors
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/text_encoder_2/config.json
+   1325.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/text_encoder_2/model.safetensors
+      0.5 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/tokenizer/merges.txt
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/tokenizer/special_tokens_map.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/tokenizer/tokenizer_config.json
+      1.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/tokenizer/vocab.json
+      0.5 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/tokenizer_2/merges.txt
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/tokenizer_2/special_tokens_map.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/tokenizer_2/tokenizer_config.json
+      1.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/tokenizer_2/vocab.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/trans_vae/config.json
+    200.9 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/trans_vae/diffusion_pytorch_model.safetensors
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/unet/config.json
+   7765.7 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/unet/diffusion_pytorch_model.safetensors
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/vae/config.json
+    159.6 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.2_layerdiff3d/resolve/main/vae/diffusion_pytorch_model.safetensors
+
+23 个 URL（每个都能单独 curl -L 下）
+
+layerdifforg/seethroughv0.0.1_marigold  @main
+-> /Volumes/Data/Users/sekia/ComfyUI-Installs/ComfyUI/ComfyUI/models/SeeThrough/seethroughv0.0.1_marigold
+15 个文件，合计 3.05 GB
+
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/LICENSE
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/NOTICE
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/README.md
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/model_index.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/scheduler/scheduler_config.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/text_encoder/config.json
+    649.3 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/text_encoder/model.safetensors
+      0.5 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/tokenizer/merges.txt
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/tokenizer/special_tokens_map.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/tokenizer/tokenizer_config.json
+      1.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/tokenizer/vocab.json
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/unet/config.json
+   2314.1 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/unet/diffusion_pytorch_model.safetensors
+      0.0 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/vae/config.json
+    159.6 MB  https://hf-mirror.com/layerdifforg/seethroughv0.0.1_marigold/resolve/main/vae/diffusion_pytorch_model.safetensors
+
+15 个 URL（每个都能单独 curl -L 下）
+
