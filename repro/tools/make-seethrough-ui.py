@@ -26,7 +26,11 @@ DEFAULT_OUT = os.path.join(ROOT, "workflows", "see-through.ui.json")
 
 # 作者 API 文件里的参数（见 config/workflows/see-through.json）
 SEED = 42
-RESOLUTION = 1280
+# 作者用 1280，但 1280 在本机（M4 Pro / 48GB）会把整台机器顶到重启：
+# 1280² 的 token 数是 1024² 的 1.56 倍，注意力与 21 层 RGBA 叠加后直接
+# 触发系统级 OOM，连续 3 次（最新一次 2026-10-22 13:31 重启）。
+# 1024 已实测完整跑通，默认值改成 1024；要试 1280 请自己加 --resolution。
+RESOLUTION = 1024
 STEPS = 30
 # -1 = 按 layers 分辨率（1024）跑，会把 19 张图一批塞进 Marigold，MPS 上直接
 # "Invalid buffer size: 50.00 GiB"。512 足够（深度是低频信息），实测 39s。
@@ -184,10 +188,16 @@ def comfy_workflows_dir():
 
 
 def main():
+    global RESOLUTION, STEPS
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=DEFAULT_OUT)
     ap.add_argument("--install", action="store_true")
+    ap.add_argument("--resolution", type=int, default=RESOLUTION,
+                    help="生成分辨率，默认 1024；1280 在本机会 OOM 重启整机")
+    ap.add_argument("--steps", type=int, default=STEPS)
     a = ap.parse_args()
+    RESOLUTION = a.resolution
+    STEPS = a.steps
 
     g = build(load_vendor())
     validate(g)
