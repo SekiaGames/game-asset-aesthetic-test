@@ -66,7 +66,7 @@ python3 tools/make-seethrough-ui.py --install
 | Python 依赖 | diffusers 0.40 / accelerate / peft / scikit-learn / matplotlib / opencv-python-headless（hub 锁在 1.30，不动 ComfyUI 原有环境） |
 | 重启后注册 | 7 个节点：LoadLayerDiffModel / LoadDepthModel / GenerateLayers / GenerateDepth / PostProcess / SavePSD / PartsToLayers |
 | 安装前环境快照 | `repro/comfy/venv-freeze-before-seethrough.txt`（要回滚就按它卸） |
-| **模型** | **未下载**（`models/SeeThrough/` 空） |
+| 模型 | 已下：`models/SeeThrough/seethroughv0.0.2_layerdiff3d`（9.5 GB）、`.../seethroughv0.0.1_marigold`（3.1 GB） |
 
 模型是 diffusers 目录结构，**不能按单文件下**（`DownloadModelTool get` 只处理单文件，
 拿不到 `model_index.json` 等流水线定义）：
@@ -84,6 +84,38 @@ cd repro/DownloadModelTool
 
 完整直链清单在 [`seethrough-model-urls.txt`](seethrough-model-urls.txt)（39 个文件）。
 每个 URL 形如 `https://hf-mirror.com/<repo>/resolve/main/<path>`，支持 Range（实测 206，约 2.1 MB/s）。
+
+## 第二个坑：模型加载时去拉 juggernaut（已修）
+
+格式修好、模型下完之后，`SeeThrough_LoadLayerDiffModel` 又报：
+
+```
+OSError: frankjoshua/juggernautXL_version6Rundiffusion does not appear to have a file named scheduler_config.json
+```
+
+不是模型没下全，是**节点代码写死了远程 repo**：
+
+```python
+# see-through/common/modules/layerdiffuse/diffusers_kdiffusion_sdxl.py:120
+if scheduler is None:                      # nodes.py 传的就是 None
+    model_id = "frankjoshua/juggernautXL_version6Rundiffusion"
+    scheduler = DPMSolverMultistepScheduler.from_pretrained(model_id, subfolder="scheduler", ...)
+```
+
+作者机器上那个 repo 在 HF 缓存里，所以没暴露；新机器必然走网络，镜像抖一下就炸。
+
+而本地模型目录自带一份**完全等价**的配置（`scheduler/scheduler_config.json`：
+`DPMSolverMultistepScheduler`、`algorithm_type=sde-dpmsolver++`、`final_sigmas_type=zero`、
+SDXL betas 0.00085/0.012）。所以补丁改成从本地读，`scheduler` 不是 `None` 了，
+那个分支就绕过：
+
+```sh
+cd <ComfyUI>/custom_nodes/ComfyUI-See-through
+git apply /path/to/repro/patches/seethrough-local-scheduler.patch
+```
+
+补丁：[`../patches/seethrough-local-scheduler.patch`](../patches/seethrough-local-scheduler.patch)。
+改完重启后端，日志应出现 `[SeeThrough] Scheduler from local model dir (no juggernaut fetch)`。
 
 ## 验证到哪一步（诚实版）
 
