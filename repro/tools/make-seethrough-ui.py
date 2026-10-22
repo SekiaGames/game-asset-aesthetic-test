@@ -28,7 +28,9 @@ DEFAULT_OUT = os.path.join(ROOT, "workflows", "see-through.ui.json")
 SEED = 42
 RESOLUTION = 1280
 STEPS = 30
-RESOLUTION_DEPTH = -1
+# -1 = 按 layers 分辨率（1024）跑，会把 19 张图一批塞进 Marigold，MPS 上直接
+# "Invalid buffer size: 50.00 GiB"。512 足够（深度是低频信息），实测 39s。
+RESOLUTION_DEPTH = 512
 TBLR_SPLIT = True
 USE_LAMA = False
 SAVE_PREFIX = "seethrough_kurumi"

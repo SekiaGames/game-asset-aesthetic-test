@@ -10,6 +10,7 @@ ap.add_argument("--steps", type=int, default=30)
 ap.add_argument("--img", default="Anime_game_character_reference_2026-10-21T13-55-27.png")
 ap.add_argument("--timeout", type=int, default=1800)
 ap.add_argument("--base", default="http://127.0.0.1:8188")
+ap.add_argument("--depth-res", type=int, default=-1)
 a = ap.parse_args()
 
 BASE = a.base
@@ -28,7 +29,7 @@ g = {
         "image": ["2", 0], "layerdiff_model": ["3", 0], "seed": 42,
         "resolution": a.res, "num_inference_steps": a.steps}},
     "6": {"class_type": "SeeThrough_GenerateDepth", "inputs": {
-        "layers": ["5", 0], "depth_model": ["4", 0], "seed": 42, "resolution_depth": -1}},
+        "layers": ["5", 0], "depth_model": ["4", 0], "seed": 42, "resolution_depth": a.depth_res}},
     "7": {"class_type": "SeeThrough_PostProcess", "inputs": {
         "layers_depth": ["6", 0], "tblr_split": True, "use_lama": False}},
     "8": {"class_type": "SeeThrough_SavePSD", "inputs": {"parts": ["7", 0], "filename_prefix": "seethrough_kurumi"}},

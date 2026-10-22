@@ -117,6 +117,57 @@ git apply /path/to/repro/patches/seethrough-local-scheduler.patch
 补丁：[`../patches/seethrough-local-scheduler.patch`](../patches/seethrough-local-scheduler.patch)。
 改完重启后端，日志应出现 `[SeeThrough] Scheduler from local model dir (no juggernaut fetch)`。
 
+## 第三个坑：MPS 上的 median 直接 abort 进程（已修）
+
+修完 scheduler 之后能加载、能去噪，但**进程在最后解码时凭空消失**，没有 Python 异常：
+
+```
+MPSNDArraySort.mm:252: failed assertion `Axis = 4.
+This class only supports axis = 0, 1, 2, 3`
+Fatal Python error: Aborted
+```
+
+崩点在 `layerdiffuse/vae.py:232`（`estimate_augmented`）。原因很具体：
+
+```python
+result = torch.stack(result, dim=0)        # 4 维堆成 5 维 (n_aug, B, C, H, W)
+median = torch.median(result, dim=0).values  # Metal 的 sort 只支持 4 维
+```
+
+Metal 的 `MPSNDArraySort` 不支持 5 维，这不是显存问题也不是 dtype 问题——1280/1024、
+bf16/fp32 全都在同一行崩。而 `args` 循环里有 `break`，实际只有一个增强分支，
+中位数就是它自己。修法：
+
+```python
+if result.shape[0] == 1:
+    return result[0]
+if result.ndim > 4 and result.device.type == "mps":
+    return result.cpu().median(dim=0).values.to(result.device)
+```
+
+（我先试过把整个解码搬到 CPU：能绕过，但 fp32 UNet1024 在 CPU 上又慢又吃内存，
+最后被系统 kill，日志里连 abort 都没有。弯路记在这里，别重复。）
+
+节点包重装 / 升级后，两个补丁一起补回来（幂等，打过会跳过）：
+
+```sh
+python3 repro/patches/apply-seethrough-patches.py            # 默认路径
+python3 repro/patches/apply-seethrough-patches.py --node <custom_nodes/ComfyUI-See-through>
+```
+
+也可以用现成的 patch 文件：`seethrough-local-scheduler.patch`、`seethrough-mps-median.patch`
+（`patch -p1 < ...`）。两个补丁上完都要重启后端。
+
+## 第四个坑：深度推理的 batch 撑爆显存
+
+`resolution_depth=-1` 表示「按 layers 分辨率跑」，于是 19 张层图**一批**塞进 Marigold：
+
+```
+RuntimeError: Invalid buffer size: 50.00 GiB
+```
+
+改成 **512** 就够（深度是低频信息），实测 39 秒出全部深度图。工作流里已把这个默认值改好。
+
 ## 验证到哪一步（诚实版）
 
 | 检查 | 结果 |
@@ -125,7 +176,9 @@ git apply /path/to/repro/patches/seethrough-local-scheduler.patch
 | 节点模块能 import | ✅ 独立进程加载，打印 `Loaded 7 nodes` |
 | widget 顺序与实测定义一致 | ✅ 对照 `/object_info` 逐个核过（含 `control_after_generate` 位置、SavePSD 的两个按钮值） |
 | JSON 结构自检 | ✅ `make-seethrough-ui.py` 内置断言：id 唯一、link 两端登记一致 |
-| **在画布里真打开一次** | ❌ 没做。`tools/check-workflow-load.mjs` 想用 headless Chrome 的 CDP 调 `app.loadGraphData` 实测，但本机环境的透明代理拦掉了到 `127.0.0.1:9xxx` 的 WebSocket 握手（`non-101`），跑不通 |
+| 端到端跑通 | ✅ 1024/6 步 + depth 512，**21 层 + 深度 + layers.json 全部落地** |
+| **在画布里真打开一次** | ⚠️ 没亲手点，但你在画布里执行过同一个文件（跑到加载模型阶段），加上 API 通道全流程通过 |
+| ~~在画布里真打开一次~~ 旧记录 | ❌ 没做。`tools/check-workflow-load.mjs` 想用 headless Chrome 的 CDP 调 `app.loadGraphData` 实测，但本机环境的透明代理拦掉了到 `127.0.0.1:9xxx` 的 WebSocket 握手（`non-101`），跑不通 |
 
 所以「能加载」这件事是**按官方骨架 + 实测节点定义推出来的**，不是亲眼看见的。
 打开时若还报错，把控制台报错发我，那说明是节点定义与骨架版本不符。
